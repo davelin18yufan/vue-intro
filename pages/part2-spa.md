@@ -1,8 +1,3 @@
----
-layout: section
-transition: fade
----
-
 # Node.js 出現之後，一切都不一樣了 ⚙️
 
 <div
@@ -61,13 +56,13 @@ graph TD
 
 </div>
 
-<v-clicks class="mt-4">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:500}}" class="mt-4">
 
 - 使用者體驗更流暢：頁面切換不閃爍，像桌面應用程式
 - <span v-mark.underline.blue>前後端分離</span>：後端只負責 API，前端只負責呈現
 - 你的 API 端點可以同時服務 Web、Mobile、Desktop
 
-</v-clicks>
+</div>
 
 <!--
 後端工程師聽到「前後端分離」通常都鬆一口氣。
@@ -87,11 +82,11 @@ level: 2
 <div class="text-5xl font-black text-green-400 mt-4">2,300,000+</div>
 <div class="text-lg opacity-60 mt-1">npm 套件數量（2024）</div>
 
-<div v-click class="mt-4 text-sm opacity-50 italic">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="mt-4 text-sm opacity-50 italic">
   ※ 是的，連 <code>is-odd</code>（判斷是否為奇數）都是一個套件
 </div>
 
-<div v-click class="mt-6 text-sm space-y-2">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:150,duration:400}}" class="mt-6 text-sm space-y-2">
 
 <div class="flex items-center gap-2">
   <carbon:checkmark-filled class="text-green-400 flex-shrink-0" />
@@ -182,7 +177,7 @@ layoutClass: gap-8
 
 <div class="space-y-4 mt-4">
 
-<div v-click class="p-3 rounded border border-red-400/20 bg-red-400/5 text-sm">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="p-3 rounded-xl border border-red-400/30 bg-red-400/8 text-sm">
   <div class="font-bold text-red-400 mb-1">React <span class="text-xs font-normal opacity-50">Facebook, 2013</span></div>
   <div class="opacity-70 space-y-0.5">
     <div>• JSX：在 JS 裡寫 HTML（後端工程師看到的表情 😶）</div>
@@ -191,7 +186,7 @@ layoutClass: gap-8
   </div>
 </div>
 
-<div v-click class="p-3 rounded border border-yellow-400/20 bg-yellow-400/5 text-sm">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:150,duration:400}}" class="p-3 rounded-xl border border-yellow-400/30 bg-yellow-400/8 text-sm">
   <div class="font-bold text-yellow-400 mb-1">Angular <span class="text-xs font-normal opacity-50">Google, 2016</span></div>
   <div class="opacity-70 space-y-0.5">
     <div>• 超重量級，像是前端版的 .NET MVC（不是壞事，但很重）</div>
@@ -204,16 +199,16 @@ layoutClass: gap-8
 
 ::right::
 
-<div v-click class="p-4 rounded border border-green-400/30 bg-green-400/8 text-sm mt-4">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="p-4 rounded-xl border border-green-400/30 bg-green-400/8 text-sm mt-4">
   <div class="font-bold text-green-400 text-base mb-2">Vue 3 ✨ <span class="text-xs font-normal opacity-50">Evan You, 2014</span></div>
   <div class="space-y-1.5">
     <div class="flex items-start gap-2">
       <span class="text-green-400 flex-shrink-0">✅</span>
-      <span><span v-mark.underline.green="3">漸進式框架</span>：可以慢慢導入，不用一次重寫</span>
+      <span><span v-mark.underline.green>漸進式框架</span>：可以慢慢導入，不用一次重寫</span>
     </div>
     <div class="flex items-start gap-2">
       <span class="text-green-400 flex-shrink-0">✅</span>
-      <span><span v-mark.circle.orange="4">模板語法和 Razor 長得超像</span>（你等等就知道了）</span>
+      <span><span v-mark.circle.orange>模板語法和 Razor 長得超像</span>（你等等就知道了）</span>
     </div>
     <div class="flex items-start gap-2">
       <span class="text-green-400 flex-shrink-0">✅</span>
@@ -230,7 +225,7 @@ layoutClass: gap-8
   </div>
 </div>
 
-<div v-click class="mt-4 text-center text-sm opacity-60">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:450,duration:400}}" class="mt-4 text-center text-sm opacity-60">
   好，進入正題
   <carbon:arrow-right class="inline" />
 </div>

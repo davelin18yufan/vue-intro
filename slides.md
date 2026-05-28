@@ -4,8 +4,7 @@ background: https://cover.sli.dev
 title: 欸，前端到底在幹嘛？
 info: |
   一個後端工程師的前端求生指南
-  — 從 jQuery 混沌到 Vue 3 的演進
-class: text-center
+  — 前端演化的核心關鍵
 transition: slide-left
 comark: true
 duration: 45min
@@ -13,7 +12,7 @@ drawings:
   persist: false
 ---
 
-# 欸，前端到底在幹嘛？ <carbon:logo-vue class="inline text-green-400" />
+# 欸，前端到底在幹嘛？ 
 
 <div
   v-motion
@@ -21,7 +20,7 @@ drawings:
   :enter="{ y: 0, opacity: 1, transition: { delay: 400, duration: 600 } }"
   class="mt-4 text-xl opacity-80"
 >
-  一個 <span v-mark.underline.orange>後端工程師</span> 的前端求生指南
+  <span class="text-amber-400">後端工程師</span> 的前端求生指南
 </div>
 
 <div
@@ -31,11 +30,11 @@ drawings:
   class="mt-12"
 >
   <div @click="$slidev.nav.next" class="py-1 cursor-pointer" hover:bg="white op-10">
-    準備好了嗎？ <carbon:arrow-right class="inline" />
+    準備好了嗎？ <carbon:arrow-right class="inline" /><logos-vue class="inline w-10 h-10 ml-1" />
   </div>
 </div>
 
-<div class="abs-br m-6 text-xl">
+<div class="abs-br m-6 text-xl" >
   <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="slidev-icon-btn">
     <carbon:edit />
   </button>
@@ -56,23 +55,22 @@ layoutClass: gap-16
 level: 2
 ---
 
-# 今天的節目 <carbon:list class="inline" />
+# 今天的節目 <carbon-list-bulleted class="inline text-2xl" />
 
-今天不考試，不用記筆記。  
 我們就是來看看：
 
-<v-clicks>
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:500}}" class="text-blue-300">
 
-- 前端為什麼一直在換框架（真的很煩）
+- 前端為什麼一直有新框架，更新速度快到跟不上（求別再更新了，老子學不動了）
 - Node.js 怎麼讓這一切成為可能
-- Vue 元件和你熟悉的 Razor Partial 的關係
+- Vue 元件和熟悉的 Razor Partial 的關係
 - Vue 3 最核心的那個「魔法」
 
-</v-clicks>
+</div>
 
 ::right::
 
-<Toc v-click text-sm minDepth="1" maxDepth="1" />
+<Toc v-motion :initial="{opacity:0,y:10}" :enter="{opacity:1,y:0,transition:{delay:200,duration:500}}" text-sm minDepth="1" maxDepth="1" v-click="1"/>
 
 <!--
 快速帶過今天的內容，不用逐項念。
@@ -80,21 +78,56 @@ level: 2
 -->
 
 ---
-src: ./pages/part1-chaos.md
+src: ./pages/part1-chaos.md#1
+layout: section
+transition: fade
+background: https://cover.sli.dev
 ---
 
 ---
-src: ./pages/part2-spa.md
+src: ./pages/part1-chaos.md#2-7
 ---
 
 ---
-src: ./pages/part3-components.md
+src: ./pages/part2-spa.md#1
+layout: section
+transition: fade
+background: https://cover.sli.dev
 ---
 
 ---
-src: ./pages/part4-reactivity.md
+src: ./pages/part2-spa.md#2-5
 ---
 
 ---
-src: ./pages/part5-next.md
+src: ./pages/part3-components.md#1
+layout: section
+transition: fade
+background: https://cover.sli.dev
+---
+
+---
+src: ./pages/part3-components.md#2-6
+---
+
+---
+src: ./pages/part4-reactivity.md#1
+layout: section
+transition: fade
+background: https://cover.sli.dev
+---
+
+---
+src: ./pages/part4-reactivity.md#2-6
+---
+
+---
+src: ./pages/part5-next.md#1
+layout: section
+transition: fade
+background: https://cover.sli.dev
+---
+
+---
+src: ./pages/part5-next.md#2-4
 ---

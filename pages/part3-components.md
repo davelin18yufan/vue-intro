@@ -1,8 +1,3 @@
----
-layout: section
-transition: fade
----
-
 # 你早就會這個了，只是名字不同 🧩
 
 <div
@@ -31,7 +26,7 @@ layoutClass: gap-10
 
 **Razor Partial View**
 
-```cshtml
+```html
 @* _ProductCard.cshtml *@
 @model ProductViewModel
 
@@ -44,13 +39,13 @@ layoutClass: gap-10
 
 **使用方式：**
 
-```cshtml
+```html
 @Html.Partial("_ProductCard", product)
 ```
 
 ::right::
 
-<div v-click>
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}">
 
 **Vue 單文件元件 (SFC)**
 
@@ -77,8 +72,8 @@ defineProps(['name', 'price'])
 
 </div>
 
-<div v-click class="mt-4 text-sm text-center">
-  <span v-mark.circle.green="2">defineProps</span> ≈ <span v-mark.circle.green="2">@model</span>
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:150,duration:400}}" class="mt-4 text-sm text-center">
+  <span v-mark.circle.green>defineProps</span> ≈ <span v-mark.circle.green>@model</span>
   &nbsp;·&nbsp; 都是「告訴外面要傳什麼進來」
 </div>
 
@@ -162,8 +157,8 @@ level: 2
 
 <div class="grid grid-cols-3 gap-5 mt-6">
 
-<div v-click class="relative">
-  <div class="p-4 rounded-xl border-2 border-blue-400/50 bg-blue-400/8">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="relative">
+  <div class="p-4 rounded-xl border border-blue-400/30 bg-blue-400/8">
     <div class="text-blue-400 font-bold mb-2 flex items-center gap-2">
       <carbon:code class="text-lg" /> script setup
     </div>
@@ -177,8 +172,8 @@ level: 2
   </div>
 </div>
 
-<div v-click class="relative">
-  <div class="p-4 rounded-xl border-2 border-green-400/50 bg-green-400/8">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:150,duration:400}}" class="relative">
+  <div class="p-4 rounded-xl border border-green-400/30 bg-green-400/8">
     <div class="text-green-400 font-bold mb-2 flex items-center gap-2">
       <carbon:html class="text-lg" /> template
     </div>
@@ -192,8 +187,8 @@ level: 2
   </div>
 </div>
 
-<div v-click class="relative">
-  <div class="p-4 rounded-xl border-2 border-orange-400/50 bg-orange-400/8">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="relative">
+  <div class="p-4 rounded-xl border border-orange-400/30 bg-orange-400/8">
     <div class="text-orange-400 font-bold mb-2 flex items-center gap-2">
       <carbon:paint-brush class="text-lg" /> style scoped
     </div>
@@ -209,7 +204,7 @@ level: 2
 
 </div>
 
-<div v-click class="mt-6 text-center text-sm opacity-60">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:450,duration:400}}" class="mt-6 text-center text-sm opacity-60">
   一個元件就是一個 <code>.vue</code> 檔案，所有相關的東西都在一起 ✅
 </div>
 
@@ -231,7 +226,7 @@ level: 2
 # Props：從父傳子資料
 
 ````md magic-move {lines: true}
-```cshtml
+```html
 @* 父頁面傳資料給 Partial View *@
 @Html.Partial("_UserCard", new UserCardViewModel {
     Name    = "王小明",
@@ -320,11 +315,11 @@ level: 2
 
 </div>
 
-<div v-click class="mt-4 grid grid-cols-4 gap-3 text-xs text-center">
-  <div class="p-2 rounded bg-blue-400/15 border border-blue-400/30">AppLayout<br/><span class="opacity-50">整體殼</span></div>
-  <div class="p-2 rounded bg-green-400/15 border border-green-400/30">NavBar<br/><span class="opacity-50">導覽</span></div>
-  <div class="p-2 rounded bg-orange-400/15 border border-orange-400/30">ProductCard<br/><span class="opacity-50">×N 重用</span></div>
-  <div class="p-2 rounded bg-purple-400/15 border border-purple-400/30">Footer<br/><span class="opacity-50">頁尾</span></div>
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="mt-4 grid grid-cols-4 gap-3 text-xs text-center">
+  <div class="p-2 rounded-lg bg-blue-400/15 border border-blue-400/30">AppLayout<br/><span class="opacity-50">整體殼</span></div>
+  <div class="p-2 rounded-lg bg-green-400/15 border border-green-400/30">NavBar<br/><span class="opacity-50">導覽</span></div>
+  <div class="p-2 rounded-lg bg-orange-400/15 border border-orange-400/30">ProductCard<br/><span class="opacity-50">×N 重用</span></div>
+  <div class="p-2 rounded-lg bg-purple-400/15 border border-purple-400/30">Footer<br/><span class="opacity-50">頁尾</span></div>
 </div>
 
 <!--

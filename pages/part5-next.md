@@ -1,8 +1,3 @@
----
-layout: section
-transition: fade
----
-
 # 好啦，接下來可以自己玩了 🚀
 
 <div
@@ -29,7 +24,7 @@ layoutClass: gap-10
 
 不用裝任何東西，瀏覽器開一開就可以玩
 
-<v-clicks>
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:500}}">
 
 - 🇹🇼 繁體中文介面，讀起來很舒服
 - 🖥️ 瀏覽器裡直接寫 code 並執行
@@ -37,9 +32,9 @@ layoutClass: gap-10
 - ⏱️ 每章節 10-15 分鐘，不用一次全部做完
 - ✅ 做完等於掌握 Vue 3 所有核心概念
 
-</v-clicks>
+</div>
 
-<div v-click class="mt-8">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="mt-8">
   <a
     href="https://zh-hk.vuejs.org/tutorial/#step-1"
     target="_blank"
@@ -50,7 +45,7 @@ layoutClass: gap-10
   </a>
 </div>
 
-<div v-click class="mt-3 text-xs opacity-40">
+<div v-motion :initial="{opacity:0}" :enter="{opacity:1,transition:{delay:400,duration:400}}" class="mt-3 text-xs opacity-40">
   https://zh-hk.vuejs.org/tutorial/#step-1
 </div>
 
@@ -60,27 +55,27 @@ layoutClass: gap-10
 
 <div class="font-bold opacity-70 mb-2">教程涵蓋：</div>
 
-<div v-click class="flex items-start gap-2">
+<div v-motion :initial="{opacity:0,x:-10}" :enter="{opacity:1,x:0,transition:{delay:0,duration:350}}" class="flex items-start gap-2">
   <span class="text-green-400 flex-shrink-0 mt-0.5">①</span>
   <span><strong>宣告式渲染</strong> — 資料綁定基礎</span>
 </div>
-<div v-click class="flex items-start gap-2">
+<div v-motion :initial="{opacity:0,x:-10}" :enter="{opacity:1,x:0,transition:{delay:100,duration:350}}" class="flex items-start gap-2">
   <span class="text-green-400 flex-shrink-0 mt-0.5">②</span>
   <span><strong>Attribute 綁定</strong> — :href, :class</span>
 </div>
-<div v-click class="flex items-start gap-2">
+<div v-motion :initial="{opacity:0,x:-10}" :enter="{opacity:1,x:0,transition:{delay:200,duration:350}}" class="flex items-start gap-2">
   <span class="text-green-400 flex-shrink-0 mt-0.5">③</span>
   <span><strong>事件監聽</strong> — @click, @input</span>
 </div>
-<div v-click class="flex items-start gap-2">
+<div v-motion :initial="{opacity:0,x:-10}" :enter="{opacity:1,x:0,transition:{delay:300,duration:350}}" class="flex items-start gap-2">
   <span class="text-green-400 flex-shrink-0 mt-0.5">④</span>
   <span><strong>表單綁定</strong> — v-model</span>
 </div>
-<div v-click class="flex items-start gap-2">
+<div v-motion :initial="{opacity:0,x:-10}" :enter="{opacity:1,x:0,transition:{delay:400,duration:350}}" class="flex items-start gap-2">
   <span class="text-green-400 flex-shrink-0 mt-0.5">⑤</span>
   <span><strong>元件基礎</strong> — Props, Emits</span>
 </div>
-<div v-click class="flex items-start gap-2 opacity-60">
+<div v-motion :initial="{opacity:0,x:-10}" :enter="{opacity:1,x:0,transition:{delay:500,duration:350}}" class="flex items-start gap-2 opacity-60">
   <span class="flex-shrink-0 mt-0.5">⋯</span>
   <span>還有 10 個章節...</span>
 </div>
@@ -104,7 +99,7 @@ level: 2
 
 <div class="grid grid-cols-2 gap-4 mt-6">
 
-<div v-click class="p-4 rounded-xl border border-blue-400/30 bg-blue-400/8">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="p-4 rounded-xl border border-blue-400/30 bg-blue-400/8">
   <div class="flex items-center gap-3 mb-2">
     <carbon:roadmap class="text-2xl text-blue-400" />
     <div>
@@ -118,7 +113,7 @@ level: 2
   </div>
 </div>
 
-<div v-click class="p-4 rounded-xl border border-yellow-400/30 bg-yellow-400/8">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:150,duration:400}}" class="p-4 rounded-xl border border-yellow-400/30 bg-yellow-400/8">
   <div class="flex items-center gap-3 mb-2">
     <carbon:data-base class="text-2xl text-yellow-400" />
     <div>
@@ -132,7 +127,7 @@ level: 2
   </div>
 </div>
 
-<div v-click class="p-4 rounded-xl border border-green-400/30 bg-green-400/8">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="p-4 rounded-xl border border-green-400/30 bg-green-400/8">
   <div class="flex items-center gap-3 mb-2">
     <carbon:cube class="text-2xl text-green-400" />
     <div>
@@ -146,7 +141,7 @@ level: 2
   </div>
 </div>
 
-<div v-click class="p-4 rounded-xl border border-orange-400/30 bg-orange-400/8">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:450,duration:400}}" class="p-4 rounded-xl border border-orange-400/30 bg-orange-400/8">
   <div class="flex items-center gap-3 mb-2">
     <carbon:flash class="text-2xl text-orange-400" />
     <div>
@@ -192,25 +187,25 @@ level: 2
   從 Razor Pages 到 Vue 3 — 你比你想像的更準備好了
 </div>
 
-<div v-click class="mt-8 grid grid-cols-3 gap-4 text-sm max-w-xl mx-auto">
-  <div class="p-3 rounded-lg border border-green-400/30 bg-green-400/10">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:500}}" class="mt-8 grid grid-cols-3 gap-4 text-sm max-w-xl mx-auto">
+  <div class="p-3 rounded-lg border border-green-400/30 bg-green-400/8">
     <carbon:checkmark-filled class="text-green-400 text-xl mx-auto block" />
     <div class="mt-2 opacity-80">元件化思維</div>
     <div class="text-xs opacity-40 mt-1">Razor Partial → Vue SFC</div>
   </div>
-  <div class="p-3 rounded-lg border border-blue-400/30 bg-blue-400/10">
+  <div class="p-3 rounded-lg border border-blue-400/30 bg-blue-400/8">
     <carbon:checkmark-filled class="text-blue-400 text-xl mx-auto block" />
     <div class="mt-2 opacity-80">響應式資料</div>
     <div class="text-xs opacity-40 mt-1">ref() + computed()</div>
   </div>
-  <div class="p-3 rounded-lg border border-purple-400/30 bg-purple-400/10">
+  <div class="p-3 rounded-lg border border-purple-400/30 bg-purple-400/8">
     <carbon:checkmark-filled class="text-purple-400 text-xl mx-auto block" />
     <div class="mt-2 opacity-80">熟悉的模板</div>
     <div class="text-xs opacity-40 mt-1">v-if, v-for, v-model</div>
   </div>
 </div>
 
-<div v-click class="mt-8 text-sm opacity-50 space-x-4">
+<div v-motion :initial="{opacity:0}" :enter="{opacity:1,transition:{delay:200,duration:400}}" class="mt-8 text-sm opacity-50 space-x-4">
   <a href="https://zh-hk.vuejs.org/tutorial/#step-1" class="text-green-400 hover:underline">官方互動教程</a>
   <span>·</span>
   <a href="https://zh-hk.vuejs.org" class="text-blue-400 hover:underline">Vue 3 文件</a>

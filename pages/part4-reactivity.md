@@ -1,8 +1,3 @@
----
-layout: section
-transition: fade
----
-
 # Vue 最酷的地方來了 ✨
 
 <div
@@ -71,7 +66,7 @@ const greeting = computed(() =>
 ```
 ````
 
-<arrow v-click="3" x1="440" y1="330" x2="280" y2="390" color="#10b981" width="2" arrowSize="1" />
+<arrow v-motion :initial="{opacity:0}" :enter="{opacity:1,transition:{delay:400,duration:400}}" x1="440" y1="330" x2="280" y2="390" color="#10b981" width="2" arrowSize="1" />
 
 <!--
 這是最重要的一張投影片。
@@ -111,16 +106,16 @@ count.value++             // 改了！Vue 知道要更新畫面
 ```
 
 <div class="mt-4 text-sm space-y-2">
-  <div v-click="2">
-    <span v-mark.circle.orange="2">ref(0)</span>
+  <div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}">
+    <span v-mark.circle.orange>ref(0)</span>
     → 把 <code>0</code> 包成一個「可追蹤的容器」
   </div>
-  <div v-click="3">
-    <span v-mark.underline.blue="3">.value</span>
+  <div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:150,duration:400}}">
+    <span v-mark.underline.blue>.value</span>
     → script 裡存取必須加，template 裡不用
   </div>
-  <div v-click="4">
-    <span v-mark.box.green="4">template 自動解包</span>
+  <div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}">
+    <span v-mark.box.green>template 自動解包</span>
     → Vue 偵測到你在模板裡用 ref，自動幫你加 .value
   </div>
 </div>
@@ -208,7 +203,7 @@ const summary = computed(() =>
 ```
 ````
 
-<div v-click="3" class="mt-3 text-sm opacity-60 text-center">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="mt-3 text-sm opacity-60 text-center">
   改 <code>price.value = 399</code> → <code>total</code> 自動更新 → <code>tax</code> 自動更新 → <code>summary</code> 自動更新 ✨
 </div>
 
@@ -244,11 +239,11 @@ layoutClass: gap-10
 
 ::right::
 
-<div v-click class="mt-2">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="mt-2">
 
 **實際對比：**
 
-```cshtml
+```html
 @* Razor *@
 @if (Model.IsLoggedIn) {
   <p>歡迎，@Model.UserName！</p>
@@ -264,7 +259,7 @@ layoutClass: gap-10
 
 </div>
 
-<div v-click class="mt-3">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:150,duration:400}}" class="mt-3">
 
 ```vue
 <!-- Vue template -->
