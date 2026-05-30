@@ -1,4 +1,4 @@
-# Node.js 出現之後，一切都不一樣了 ⚙️
+# 因為 Node.js 才讓這一切變的可能 ⚙️
 
 <div
   v-motion
@@ -24,7 +24,7 @@ level: 2
 
 <div>
 
-**傳統 MPA（你熟悉的）**
+**傳統 MPA**
 
 ```mermaid {scale: 0.65}
 graph TD
@@ -44,10 +44,10 @@ graph TD
 
 ```mermaid {scale: 0.65}
 graph TD
-  A[第一次載入] --> B[下載 app.js]
+  A[第一次載入] --> B[下載入口js]
   B --> C[之後所有互動都在前端]
   C --> D[需要資料？]
-  D --> E[只拿 JSON]
+  D --> E[請求拿 JSON]
   E --> F[前端更新畫面]
   F --> C
 ```
@@ -56,7 +56,7 @@ graph TD
 
 </div>
 
-<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:500}}" class="mt-4">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:500}}" class="absolute bottom-8 left-14 right-14 z-20 rounded border border-sky-400/30 bg-sky-950/90 px-4 py-3 text-sm text-sky-100 shadow-lg" v-click="1">
 
 - 使用者體驗更流暢：頁面切換不閃爍，像桌面應用程式
 - <span v-mark.underline.blue>前後端分離</span>：後端只負責 API，前端只負責呈現
@@ -73,35 +73,35 @@ graph TD
 level: 2
 ---
 
-# Node.js：前端宇宙的誕生 <carbon:logo-nodejs class="inline text-green-400" />
+# <logos-nodejs class="inline text-green-400" /> 前端宇宙的誕生
 
 <div class="grid grid-cols-2 gap-8 mt-2">
 
 <div>
 
-<div class="text-5xl font-black text-green-400 mt-4">2,300,000+</div>
-<div class="text-lg opacity-60 mt-1">npm 套件數量（2024）</div>
+<div class="text-5xl font-black text-green-400 mt-4">3,700,000+</div>
+<div class="text-lg opacity-60 mt-1">npm 套件數量（2025）</div>
 
 <div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="mt-4 text-sm opacity-50 italic">
-  ※ 是的，連 <code>is-odd</code>（判斷是否為奇數）都是一個套件
+  ※ 連 <code>is-odd</code>（判斷是否為奇數）都是一個套件
 </div>
 
 <div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:150,duration:400}}" class="mt-6 text-sm space-y-2">
 
 <div class="flex items-center gap-2">
-  <carbon:checkmark-filled class="text-green-400 flex-shrink-0" />
+  <carbon-checkmark-filled class="text-green-400 flex-shrink-0" />
   npm / pnpm — 套件管理（像 NuGet）
 </div>
 <div class="flex items-center gap-2">
-  <carbon:checkmark-filled class="text-green-400 flex-shrink-0" />
-  <span v-mark.circle.orange>Vite</span> — 建構工具（這個專案就在用）
+  <carbon-checkmark-filled class="text-green-400 flex-shrink-0" />
+  <span>Vite</span> — 建構工具
 </div>
 <div class="flex items-center gap-2">
-  <carbon:checkmark-filled class="text-green-400 flex-shrink-0" />
+  <carbon-checkmark-filled class="text-green-400 flex-shrink-0" />
   Vue / React / Angular — UI 框架
 </div>
 <div class="flex items-center gap-2">
-  <carbon:checkmark-filled class="text-green-400 flex-shrink-0" />
+  <carbon-checkmark-filled class="text-green-400 flex-shrink-0" />
   Nuxt / Next.js — SSR Meta 框架
 </div>
 
@@ -110,7 +110,7 @@ level: 2
 
 <div>
 
-```mermaid {scale: 0.72}
+```mermaid {scale: 0.8}
 mindmap
   root((Node.js))
     套件管理
@@ -150,7 +150,7 @@ Node.js 讓 JavaScript 可以在伺服器端執行，
 level: 2
 ---
 
-# 前端框架的漫長「進化」史 <carbon:time class="inline opacity-60" />
+# 前端框架的漫長「進化」史 <carbon-time class="inline opacity-60" />
 
 <div class="text-sm opacity-60 mb-2 italic">
   說到框架，前端工程師最愛做的事就是每三年重寫一次...
@@ -158,6 +158,10 @@ level: 2
 
 <FrameworkTimeline />
 
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="p-3 rounded-xl border border-yellow-400/30 bg-yellow-400/8 text-sm mt-28 text-amber-400 italic text-center" v-click>
+不可否認的是，前端的管轄範圍已經從純使用者端進化涵蓋到了伺服器端甚至可以組件出自己的後端(BFF)
+
+</div>
 <!--
 帶著大家點幾個節點，看看每個框架解決了什麼問題。
 
@@ -171,17 +175,17 @@ layout: two-cols
 layoutClass: gap-8
 ---
 
-# 說真的，為什麼選 Vue？
+# 那為什麼選 Vue？
 
-不是說其他框架不好，只是...
+沒有最好的解方只有最適合的
 
 <div class="space-y-4 mt-4">
 
 <div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="p-3 rounded-xl border border-red-400/30 bg-red-400/8 text-sm">
   <div class="font-bold text-red-400 mb-1">React <span class="text-xs font-normal opacity-50">Facebook, 2013</span></div>
   <div class="opacity-70 space-y-0.5">
-    <div>• JSX：在 JS 裡寫 HTML（後端工程師看到的表情 😶）</div>
-    <div>• 需要自己選 Router、狀態管理、測試框架...</div>
+    <div>• 虛擬 DOM: 學習曲線偏陡峭，需深入理解運作機制</div>
+    <div>• 需要自己配 Router、狀態管理、測試框架...</div>
     <div>• 社群生態豐富但分散，選擇太多反而困難</div>
   </div>
 </div>
@@ -189,9 +193,9 @@ layoutClass: gap-8
 <div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:150,duration:400}}" class="p-3 rounded-xl border border-yellow-400/30 bg-yellow-400/8 text-sm">
   <div class="font-bold text-yellow-400 mb-1">Angular <span class="text-xs font-normal opacity-50">Google, 2016</span></div>
   <div class="opacity-70 space-y-0.5">
-    <div>• 超重量級，像是前端版的 .NET MVC（不是壞事，但很重）</div>
-    <div>• 大量 Decorator、DI、Module... 就是企業級那種感覺</div>
-    <div>• 學習曲線是三者中最陡峭的</div>
+    <div>• 超重量級，像是前端版的 .NET MVC（不是壞事，但很胖）</div>
+    <div>• 大量 Decorator、DI、Module... 就是大卡車那種感覺</div>
+    <div>• 學習曲線更高更不直覺是三者中最陡峭的</div>
   </div>
 </div>
 
@@ -204,19 +208,19 @@ layoutClass: gap-8
   <div class="space-y-1.5">
     <div class="flex items-start gap-2">
       <span class="text-green-400 flex-shrink-0">✅</span>
-      <span><span v-mark.underline.green>漸進式框架</span>：可以慢慢導入，不用一次重寫</span>
+      <span><span v-mark.underline.yellow>漸進式框架</span>：可以慢慢導入，不用一次重寫</span>
     </div>
     <div class="flex items-start gap-2">
       <span class="text-green-400 flex-shrink-0">✅</span>
-      <span><span v-mark.circle.orange>模板語法和 Razor 長得超像</span>（你等等就知道了）</span>
+      <span>模板語法和<span v-mark.circle.orange> HTML 原生無縫接軌</span></span>
     </div>
     <div class="flex items-start gap-2">
       <span class="text-green-400 flex-shrink-0">✅</span>
-      <span>官方提供 Vue Router + Pinia，不用四處找</span>
+      <span>官方提供 Vue Router + Pinia，不用自己決定，整合度高</span>
     </div>
     <div class="flex items-start gap-2">
       <span class="text-green-400 flex-shrink-0">✅</span>
-      <span>繁體中文文件，社群活躍</span>
+      <span v-mark.red>中文文件，社群活躍</span>
     </div>
     <div class="flex items-start gap-2">
       <span class="text-green-400 flex-shrink-0">✅</span>
@@ -225,9 +229,9 @@ layoutClass: gap-8
   </div>
 </div>
 
-<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:450,duration:400}}" class="mt-4 text-center text-sm opacity-60">
-  好，進入正題
-  <carbon:arrow-right class="inline" />
+<div v-motion :initial="{opacity:0,x:-200}" :enter="{opacity:1,x:0,transition:{delay:450,duration:400}}" class="mt-24 text-center text-sm opacity-60" v-click="4">
+  OK，進入正題
+  <Arrow x1="10" y1="40" x2="400" y2="40" />
 </div>
 
 <!--

@@ -7,5 +7,11 @@ export default defineConfig({
     'i-logos:typescript',
     'i-logos:html-5',
     'i-logos:c-sharp',
+    'i-logos:jquery',
+    'i-logos:angular',
+    'i-logos:react',
+    'i-logos:nextjs-icon',
+    'i-logos:nuxt-icon',
+    'i-logos:astro',
   ],
 })
