@@ -13,5 +13,7 @@ export default defineConfig({
     'i-logos:nextjs-icon',
     'i-logos:nuxt-icon',
     'i-logos:astro',
+    'i-carbon-server-proxy',
+    'i-carbon-user-profile',
   ],
 })

@@ -12,7 +12,7 @@ const greeting = computed(() =>
 
 <template>
   <div class="live-demo p-5 rounded-xl border border-green-400/30 bg-green-400/5">
-    <div class="text-xs text-green-400 font-mono mb-3 opacity-70">▶ 這是活的！你可以改</div>
+    <div class="text-xs text-green-400 font-mono mb-3 opacity-70">▶ 這裡必須動態即時更新</div>
 
     <div class="space-y-2 mb-4">
       <label class="flex items-center gap-3 text-sm">

@@ -29,32 +29,32 @@ level: 2
 <button id="clearBtn">清除</button>
 
 <script>
-$('#nameInput').on('input', function() {
-  var name = $(this).val()
-  if (name) {
-    $('#greeting').text('你好，' + name + '！')
-  } else {
-    $('#greeting').text('你好！')
-  }
-})
+  $('#nameInput').on('input', function() {
+    var name = $(this).val()
+    if (name) {
+      $('#greeting').text('你好，' + name + '！')
+    } else {
+      $('#greeting').text('你好！')
+    }
+  })
 
-$('#clearBtn').click(function() {
-  $('#nameInput').val('')
-  $('#greeting').text('你好！')  // ← 忘記這行就 Bug，問過就知道
-})
+  $('#clearBtn').click(function() {
+    $('#nameInput').val('')
+    $('#greeting').text('你好！')  // ← 忘記這行就 Bug，並且不會有錯誤顯示
+  })
 </script>
 ```
 
-```vue {*|4-8|11-16}
+```vue {*|4-8|11-17}
 <!-- Vue 方式：你只管資料，DOM 的事 Vue 處理 -->
 <script setup>
-import { ref, computed } from 'vue'
+  import { ref, computed } from 'vue'
 
-// 資料就是唯一的真相
-const name = ref('')
-const greeting = computed(() =>
-  name.value ? `你好，${name.value}！` : '你好！'
-)
+  // 資料就是唯一的可信來源
+  const name = ref('')
+  const greeting = computed(() =>
+    name.value ? `你好，${name.value}！` : '你好！'
+  )
 </script>
 
 <template>
@@ -66,7 +66,28 @@ const greeting = computed(() =>
 ```
 ````
 
-<arrow v-motion :initial="{opacity:0}" :enter="{opacity:1,transition:{delay:400,duration:400}}" x1="440" y1="330" x2="280" y2="390" color="#10b981" width="2" arrowSize="1" />
+<div
+  v-click.hide="1"
+  v-motion
+  :initial="{opacity:0}"
+  :enter="{opacity:1,transition:{delay:400,duration:400}}"
+  class="pointer-events-none absolute inset-0"
+>
+  <svg class="h-full w-full" viewBox="0 0 980 552" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="reactivity-arrow-head" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+        <path d="M0 0 L8 4 L0 8 Z" fill="#10b981" />
+      </marker>
+    </defs>
+    <path
+      d="M 452 330 C 405 348, 350 370, 286 392"
+      stroke="#10b981"
+      stroke-width="3"
+      stroke-linecap="round"
+      marker-end="url(#reactivity-arrow-head)"
+    />
+  </svg>
+</div>
 
 <!--
 這是最重要的一張投影片。
@@ -90,55 +111,66 @@ layoutClass: gap-10
 
 # ref()：包了就不一樣
 
-```ts {1|3-4|6-8|10-13|all}
+<div class="text-sm text-slate-300 mb-3">
+普通變數只是值；<code>ref()</code> 會把值包成 Vue 可以追蹤的響應式容器。
+</div>
+
+```ts {1|3-4|6-8|10-12|all}{maxHeight:'235px'}
 import { ref } from 'vue'
 
 // ref() 把一個普通值包裝成「響應式」的
 const count = ref(0)
 
-// 在 script 中：要用 .value 存取
+// script 中：用 .value 讀寫真正的值
 console.log(count.value)  // 0
-count.value++             // 改了！Vue 知道要更新畫面
+count.value++             // Vue 追蹤到變更
 
-// 在 template 中：自動解包，不用 .value
-// <p>{{ count }}</p>  ← 直接寫，Vue 自己處理
-// <button @click="count++">  ← 也可以！
+// template 中：Vue 會自動解包
+// <p>{{ count }}</p>
+// <button @click="count++">
 ```
 
-<div class="mt-4 text-sm space-y-2">
-  <div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}">
-    <span v-mark.circle.orange>ref(0)</span>
-    → 把 <code>0</code> 包成一個「可追蹤的容器」
+<div class="mt-3 grid grid-cols-3 gap-2 text-xs">
+  <div v-click="1" class="rounded border border-sky-400/30 bg-sky-400/10 px-3 py-2 text-sky-100" v-motion
+  :initial="{opacity:0}"
+  :enter="{opacity:1,transition:{duration:400}}">
+    <div class="mb-1 font-bold text-sky-300">1. 包成容器</div>
+    <code>ref(0)</code> 不是單純數字，而是可追蹤狀態。
   </div>
-  <div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:150,duration:400}}">
-    <span v-mark.underline.blue>.value</span>
-    → script 裡存取必須加，template 裡不用
+  <div v-click="2" class="rounded border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-amber-100" v-motion
+  :initial="{opacity:0}"
+  :enter="{opacity:1,transition:{duration:400}}">
+    <div class="mb-1 font-bold text-amber-300">2. script 要 .value</div>
+    讀寫 <code>count.value</code>，Vue 才能追蹤變更。
   </div>
-  <div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}">
-    <span v-mark.box.green>template 自動解包</span>
-    → Vue 偵測到你在模板裡用 ref，自動幫你加 .value
+  <div v-click="3" class="rounded border border-emerald-400/30 bg-emerald-400/8 px-3 py-2 text-emerald-100" v-motion
+  :initial="{opacity:0}"
+  :enter="{opacity:1,transition:{duration:400}}">
+    <div class="mb-1 font-bold text-emerald-300">3. template 自動解包</div>
+    畫面寫 <code>count</code> 即可，不必到處補 <code>.value</code>。
   </div>
 </div>
 
 ::right::
 
-<div class="mt-2">
+<div class="mt-1 text-sm">
 
-**看個活的：**
+<div class="mb-2 font-bold text-sky-300">現場示範：同一個 ref 驅動畫面</div>
 
-<Counter :count="3" m="t-4" />
+<Counter :count="3" />
 
-<div class="mt-4 text-xs opacity-50">
-↑ 這個 Counter 元件就是用 ref() 做的
+<div class="mt-3 rounded border border-white/15 bg-white/6 px-3 py-2 text-xs text-slate-300">
+  按下按鈕只改 <code>n.value</code>；畫面上的數字由 Vue 自動更新。
 </div>
 
-```vue
+```vue {1-4|7-11|all}{maxHeight:'175px'}
 <!-- Counter.vue 簡化版 -->
 <script setup>
-import { ref } from 'vue'
-const props = defineProps(['count'])
-const n = ref(props.count)
+  import { ref } from 'vue'
+  const props = defineProps(['count'])
+  const n = ref(props.count)
 </script>
+
 <template>
   <button @click="n--">-</button>
   <span>{{ n }}</span>
@@ -159,9 +191,11 @@ ref() 是 Vue 3 最基礎的響應式 API。
 level: 2
 ---
 
-# computed()：懶人必備
+# computed()：懶人救星
 
-懶得重複計算？讓 Vue 幫你：
+<div class="text-sm text-slate-300 mb-3">
+當一個值可以從其他狀態推導出來，就不要另外存一份；交給 <code>computed()</code> 維持同步。
+</div>
 
 ````md magic-move {lines: true}
 ```ts
@@ -203,8 +237,25 @@ const summary = computed(() =>
 ```
 ````
 
-<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="mt-3 text-sm opacity-60 text-center">
-  改 <code>price.value = 399</code> → <code>total</code> 自動更新 → <code>tax</code> 自動更新 → <code>summary</code> 自動更新 ✨
+<div class="mt-3 grid grid-cols-3 gap-2 text-xs">
+  <div v-click="1" class="rounded border border-sky-400/30 bg-sky-400/10 px-3 py-2 text-sky-100" v-motion
+  :initial="{opacity:0}"
+  :enter="{opacity:1,transition:{duration:400}}">
+    <div class="mb-1 font-bold text-sky-300">1. 保留原始資料</div>
+    <code>price</code>、<code>quantity</code> 是 source of truth。
+  </div>
+  <div v-click="2" class="rounded border border-emerald-400/30 bg-emerald-400/8 px-3 py-2 text-emerald-100" v-motion
+  :initial="{opacity:0}"
+  :enter="{opacity:1,transition:{duration:400}}">
+    <div class="mb-1 font-bold text-emerald-300">2. 推導衍生值</div>
+    <code>total</code>、<code>tax</code> 從現有資料計算，不手動同步。
+  </div>
+  <div v-click="3" class="rounded border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-amber-100" v-motion
+  :initial="{opacity:0}"
+  :enter="{opacity:1,transition:{duration:400}}">
+    <div class="mb-1 font-bold text-amber-300">3. 依賴改才重算</div>
+    改 <code>price.value</code>，相關 computed 會自動更新。
+  </div>
 </div>
 
 <!--
@@ -224,26 +275,53 @@ layoutClass: gap-10
 
 # 模板語法對照表
 
-你寫過 Razor，你已經懂一半了：
+<div class="text-sm text-slate-300 mb-3">
+Vue template 仍然是 HTML，只是把 Razor 的伺服器端語法換成瀏覽器端的響應式語法。
+</div>
 
-| Razor | Vue 模板 | 意思 |
-|-------|----------|------|
-| `@if (cond) { }` | `v-if="cond"` | 條件渲染 |
-| `@else { }` | `v-else` | 否則 |
-| `@foreach (x in list)` | `v-for="x in list"` | 列表渲染 |
-| `@Model.Name` | `{{ name }}` | 顯示值 |
-| `onclick="fn()"` | `@click="fn"` | 點擊事件 |
-| `@bind` (Blazor) | `v-model` | 雙向綁定 |
-| `href="@url"` | `:href="url"` | 動態屬性 |
-| `class="@cls"` | `:class="cls"` | 動態 class |
+<div class="grid grid-cols-2 gap-2 text-xs">
+  <div class="rounded border border-sky-400/30 bg-sky-400/10 px-3 py-2" v-motion
+  :initial="{opacity:0, x:-150}"
+  :enter="{opacity:1,x:0,transition:{duration:400}}">
+    <div class="font-bold text-sky-300">條件</div>
+    <code>@if</code> → <code>v-if</code><br>
+    <code>@else</code> → <code>v-else</code>
+  </div>
+  <div v-click="1" class="rounded border border-emerald-400/30 bg-emerald-400/8 px-3 py-2" v-motion
+  :initial="{opacity:0, x:-150}"
+  :enter="{opacity:1,x:0,transition:{duration:400}}">
+    <div class="font-bold text-emerald-300">列表</div>
+    <code>@foreach</code> → <code>v-for</code><br>
+    需要補 <code>:key</code> 追蹤項目
+  </div>
+  <div v-click="2" class="rounded border border-amber-400/30 bg-amber-400/10 px-3 py-2" v-motion
+  :initial="{opacity:0, x:-150}"
+  :enter="{opacity:1,x:0,transition:{duration:400}}">
+    <div class="font-bold text-amber-300">資料顯示</div>
+    <code>@Model.Name</code> → <code>&#123;&#123; name &#125;&#125;</code>
+  </div>
+  <div v-click="3" class="rounded border border-violet-400/30 bg-violet-400/10 px-3 py-2" v-motion
+  :initial="{opacity:0, x:-150}"
+  :enter="{opacity:1,x:0,transition:{duration:400}}">
+    <div class="font-bold text-violet-300">互動與綁定</div>
+    <code>onclick</code> → <code>@click</code><br>
+    <code>@bind</code> → <code>v-model</code>
+  </div>
+</div>
+<div v-click="5" class="mt-3 rounded border border-white/15 bg-white/6 px-3 py-2 text-xs text-slate-300" v-motion
+  :initial="{opacity:0, x:-150}"
+  :enter="{opacity:1,x:0,transition:{duration:400}}">
+  最大差異：Razor 產生 HTML；<span v-mark.red>Vue template 會跟著響應式資料持續更新</span>
+</div>
+
 
 ::right::
 
-<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="mt-2">
+<div class="mt-1 text-sm">
 
-**實際對比：**
+<div class="mb-2 font-bold text-sky-300">實際對比：同一段 UI 意圖</div>
 
-```html
+```html [Hello.cshtml ~i-logos:html-5~] {2-4|6-8|3,7|10-11|all}{at:0}{maxHeight:'180px'}
 @* Razor *@
 @if (Model.IsLoggedIn) {
   <p>歡迎，@Model.UserName！</p>
@@ -259,10 +337,9 @@ layoutClass: gap-10
 
 </div>
 
-<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:150,duration:400}}" class="mt-3">
+<div class="mt-3">
 
-```vue
-<!-- Vue template -->
+```vue [Hello.vue ~i-logos:vue~] {1|3-5|1,4|7-8|all}{at:0}{maxHeight:'170px'}
 <p v-if="isLoggedIn">歡迎，{{ userName }}！</p>
 
 <li v-for="item in items" :key="item.id">
@@ -274,6 +351,7 @@ layoutClass: gap-10
 ```
 
 </div>
+
 
 <!--
 看到這裡，大家應該覺得「欸這不就是 Razor」。
@@ -292,43 +370,51 @@ layout: two-cols
 layoutClass: gap-6
 ---
 
-# 來，你試試看
+# 輪各位試試
 
-<div class="text-sm opacity-70 mb-4">
-  左邊是可以編輯的 code，右邊是同一份程式的實際運作
+<div class="text-sm text-slate-300 mb-3">
+左邊看資料與推導邏輯，右邊看同一個模型如何驅動畫面。
 </div>
 
-```vue {monaco}
+
+```vue {monaco}{maxHeight:'360px'}
 <script setup>
-import { ref, computed } from 'vue'
+  import { ref, computed } from 'vue'
 
-const firstName = ref('小明')
-const lastName  = ref('王')
+  const firstName = ref('小明')
+  const lastName  = ref('王')
 
-// 試試改改這裡的邏輯
-const fullName = computed(() =>
-  `${lastName.value}${firstName.value}`
-)
+  // 試試改改這裡的邏輯
+  const fullName = computed(() =>
+    `${lastName.value}${firstName.value}`
+  )
 
-const greeting = computed(() =>
-  fullName.value
-    ? `嗨！我是 ${fullName.value} 👋`
-    : '請輸入名字...'
-)
+  const greeting = computed(() =>
+    fullName.value
+      ? `嗨！我是 ${fullName.value} 👋`
+      : '請輸入名字...'
+  )
 </script>
 ```
 
+
 ::right::
 
-<div class="mt-6">
+<div class="mt-2 text-sm">
 
-**同樣的邏輯，正在運作：**
+<div class="mb-2 font-bold text-sky-300">同樣的邏輯，正在運作：</div>
 
 <LiveDemo />
 
-<div class="mt-4 text-xs opacity-40 italic">
-  → 改了 ref 的值，computed 自動重算，畫面自動更新<br/>
-  → 這就是響應式系統的運作方式
+<div class="mt-3 grid grid-cols-2 gap-2 text-xs">
+  <div class="rounded border border-sky-400/30 bg-sky-400/10 px-3 py-2 text-sky-100">
+    <div class="font-bold text-sky-300">ref</div>
+    儲存可改變的輸入狀態。
+  </div>
+  <div class="rounded border border-emerald-400/30 bg-emerald-400/8 px-3 py-2 text-emerald-100">
+    <div class="font-bold text-emerald-300">computed</div>
+    自動推導要顯示的結果。
+  </div>
 </div>
 
 </div>
