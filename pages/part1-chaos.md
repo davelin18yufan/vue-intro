@@ -6,7 +6,7 @@
   :enter="{ x: 0, opacity: 1, transition: { duration: 600 } }"
   class="mt-4 text-xl opacity-60"
 >
-  在 SPA 出現之前，前端該怎麼做...
+  在所謂的前端框架出現之前，前端該怎麼做...
 </div>
 
 <!--
@@ -15,15 +15,16 @@
 -->
 
 ---
-level: 3
-layout: two-cols
-layoutClass: gap-10
+layout: two-cols-header
+layoutClass: list-flow-cols
+level: 2
 ---
 
 # 每個動作都要跟伺服器說一聲
 
+::left::
 
-<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:500}}" class="text-violet-300">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:500}}" class="text-violet-300 text-sm ">
 
 - 使用者點「下一頁」→ 伺服器整頁重繪
 - 使用者點「加入購物車」→ 伺服器整頁重繪
@@ -32,15 +33,11 @@ layoutClass: gap-10
 
 </div>
 
-<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="mt-4 text-sm opacity-60 italic">
-  Actually，這其實跟現在寫的 Razor Pages 一模一樣
-</div>
-
 ::right::
 
-<div v-motion :initial="{opacity:0,y:-100}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="mt-4 text-sm opacity-60 italic" v-click>
+<div v-motion :initial="{opacity:0,y:-100}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="text-sm opacity-60 italic" v-click>
 
-```mermaid {scale: 0.75}
+```mermaid {scale: 0.68}
 sequenceDiagram
     actor 使用者
     使用者->>瀏覽器: 點「下一頁」
@@ -52,6 +49,20 @@ sequenceDiagram
     Note over 使用者: 😐
 ```
 
+</div>
+
+::bottom::
+
+<div v-motion :initial="{opacity:0,y:16}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="mt-4 rounded border border-sky-400/30 bg-sky-400/10 px-4 py-3 text-sm text-sky-100 shadow-sm shadow-sky-900/20" v-click="2">
+  <div class="mb-1 flex items-center gap-2 font-bold text-sky-300">
+    <carbon:information class="text-base" />
+    對照：Razor Pages
+  </div>
+  <div class="leading-relaxed opacity-85">
+    Razor Pages 多半就是這種模式：每次操作回到伺服器產生一整頁 HTML。這類架構通常稱為
+    <strong class="text-white">MPA</strong>
+    <span class="opacity-70">（Multiple Page Application）</span>。
+  </div>
 </div>
 
 <!--
@@ -67,7 +78,9 @@ level: 2
 
 2006 年，John Resig 帶來了救世主：
 
-````md magic-move {lines: true}
+<div class="jquery-chaos-code">
+
+````md magic-move [app.js ~i-logos:javascript~]{lines: true}{maxHeight:'250px'}
 ```js
 // 當時覺得這樣就能統一瀏覽器，超帥的
 $('#btn').click(function() {
@@ -94,7 +107,7 @@ $('#resetBtn').click(function() {
 })
 ```
 
-```js {*|5-8|10-20|22-30}{maxHeight:'390px'}
+```js {*|5-8|10-20|22-30}
 // 真實專案應該是長這樣
 $(document).ready(function() {
   var cartItems = []
@@ -139,6 +152,8 @@ $(document).ready(function() {
 ```
 ````
 
+</div>
+
 <!--
 Magic move 展示 jQuery 從簡單到可怕的演進。
 讓大家笑一下，因為這種 code 大概很多人看過。
@@ -156,18 +171,23 @@ layoutClass: gap-10
 
 <div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:500}}" class="text-sm space-y-2 mt-4">
 
-```js
+```js [shopping.js ~i-logos:javascript~]
 // 庫存歸零，手動更新所有相關 DOM
 function updateStock(val) {
   $('#count').text(val)
   $('#badge').text(val)
   $('#buyBtn').prop('disabled', val === 0)
   $('#label').toggleClass('text-red-500', val === 0)
-  // 忘記第五個地方？→  靜默 BUG
+  // 忘記第五個地方？→  靜默無錯誤，完全無從得知
 }
 // 每個有互動的頁面，都要從零搭這套「同步機制」
 ```
 
+</div>
+
+<div v-motion :initial="{opacity:0}" :enter="{opacity:1,transition:{delay:500,duration:400}}" class="absolute bottom-16 left-14 right-14 p-3 rounded bg-amber-400/10 border border-l-3 border-amber-400/30 text-sm text-amber-200 text-center" v-click="2">
+  響應式系統、事件綁定、狀態同步 —<br>
+  框架幫你造好輪子，你只需要管資料本身
 </div>
 
 ::right::
@@ -176,7 +196,7 @@ function updateStock(val) {
 
 **框架把這整套輪子都包好了：**
 
-```vue
+```vue [shopping.vue  ~i-logos:vue~]
 <template>
   <span>{{ stock }}</span>
   <span>{{ stock }}</span>
@@ -188,11 +208,6 @@ function updateStock(val) {
 <!-- stock 一變，所有地方自動更新 ✅ -->
 ```
 
-</div>
-
-<div v-motion :initial="{opacity:0}" :enter="{opacity:1,transition:{delay:500,duration:400}}" class="mt-4 p-3 rounded bg-amber-400/10 border border-amber-400/30 text-sm text-amber-200" v-click="2">
-  響應式系統、事件綁定、狀態同步 —<br>
-  框架幫你造好輪子，你只需要管資料本身
 </div>
 
 <!--
@@ -226,7 +241,7 @@ level: 2
 
 </div>
 
-<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:150,duration:400}}" class="p-3 rounded border border-red-400/40 bg-red-400/8">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:150,duration:400}}" class="p-3 rounded border border-red-400/40 bg-red-400/8" v-click="1">
 
 ```html
 <!-- 商品卡片 2 — 一模一樣！ -->
@@ -242,7 +257,7 @@ level: 2
 
 </div>
 
-<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="p-3 rounded border border-red-400/50 bg-red-400/12">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="p-3 rounded border border-red-400/50 bg-red-400/12" v-click="1">
 
 ```html
 <!-- 商品卡片 3 — 還是！ -->
@@ -260,7 +275,7 @@ level: 2
 
 </div>
 
-<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:450,duration:400}}" class="mt-5 text-center text-base">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:450,duration:400}}" class="mt-5 text-center text-base" v-click="2">
   PM說：「按鈕文字改成『立即購買』」
   <p class="ml-2 font-bold">你：😭 × 3</p>
 </div>
@@ -272,30 +287,28 @@ level: 2
 
 ---
 level: 2
-layout: two-cols
-layoutClass: gap-12
 ---
 
 
-# 元件化思維
+# 元件化思維：後端其實早就在做
 
-等等，這個你早就會了，只是你不知道
+同一個問題：重複的畫面，應該只需要一份定義
 
-<div class="text-sm space-y-2 mt-4">
+<div class="mt-4 text-sm">
 
-**痛苦的方式：**
+**Razor Pages：把一塊畫面抽成 Partial**
 
-```html
-<div class="card">...</div>
-<div class="card">...</div>  <!-- 複製 -->
-<div class="card">...</div>  <!-- 再複製 -->
+::code-group
+
+```cs [ProductViewModel.cs ~i-logos:c-sharp~]
+public class ProductViewModel
+{
+    public string Name { get; set; }
+    public int Price { get; set; }
+}
 ```
 
-<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="mt-3">
-
-**熟悉的解法：**
-
-```html
+```html [_ProductCard.cshtml ~i-logos:html-5~]
 @* _ProductCard.cshtml *@
 @model ProductViewModel
 <div class="card">
@@ -303,51 +316,133 @@ layoutClass: gap-12
   <p>NT$ @Model.Price</p>
   <button>加入購物車</button>
 </div>
+```
 
-@* 使用時 *@
+```html [Products.cshtml ~i-logos:html-5~]
 @foreach (var p in Model.Products) {
     @Html.Partial("_ProductCard", p)
 }
 ```
 
-</div>
-</div>
+::
 
-::right::
-
-<div v-motion :initial="{opacity:0,x:100}" :enter="{opacity:1,x:0,transition:{delay:150,duration:400}}" class="mt-8" v-click>
-
-**最先出現的三大SPA框架就是同一個概念的進化版：**
-
-```vue
-<!-- ProductCard.vue -->
-<template>
-  <div class="card">
-    <h3>{{ name }}</h3>
-    <p>NT$ {{ price }}</p>
-    <button>加入購物車</button>
+<div class="mt-5 grid grid-cols-3 gap-3">
+  <div v-click="1" class="rounded border border-sky-400/30 bg-sky-400/10 px-3 py-2 text-sky-100">
+    <strong class="text-sky-300">資料模型</strong><br>
+    C# 定義畫面需要哪些資料。
   </div>
-</template>
+  <div v-click="2" class="rounded border border-violet-400/30 bg-violet-400/10 px-3 py-2 text-violet-100">
+    <strong class="text-violet-300">畫面片段</strong><br>
+    Partial 定義一張卡片怎麼產生 HTML。
+  </div>
+  <div v-click="3" class="rounded border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-amber-100">
+    <strong class="text-amber-300">使用位置</strong><br>
+    頁面迴圈呼叫 Partial，避免複製貼上。
+  </div>
+</div>
 
-<!-- 使用時 -->
-<ProductCard
-  v-for="p in products"
-  :key="p.id"
-  :name="p.name"
-  :price="p.price"
-/>
+<div v-click="4" class="mt-4 rounded border border-emerald-400/30 bg-emerald-400/8 px-4 py-3 text-emerald-100">
+  稱為後端，是因為 Razor 在伺服器上執行：伺服器把資料套進 Partial，組成完整 HTML 後才送到瀏覽器，並且以上語法都是 <code>C#</code> 的語法糖而已。
+</div>
+
+</div>
+
+<!--
+先讓後端工程師意識到：元件化不是 Vue 才有的東西。
+Razor Partial 本質上就是「把 UI 抽成可重複呼叫的單位」。
+-->
+
+---
+level: 2
+---
+
+# 元件化思維：搬到前端就是 Vue 元件
+
+<div class="absolute top-23 right-14 w-88 rounded border border-sky-400/30 bg-sky-400/10 px-4 py-3 text-xs leading-relaxed text-sky-100 z-99" v-click="5" v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}">
+  <strong class="text-sky-300">重點：</strong>
+  Vue SFC 不是把東西混在一起，而是用「元件」當邊界做
+  <span v-mark.circle.orange="6" class="font-bold text-white">關注點分離</span>：
+  <span v-mark.red="6" class="font-bold text-white">data-driven</span>、同一塊 UI 的邏輯集中，bundler 也能依元件或路由做 <span v-mark.red="6" class="font-bold text-white">code splitting</span>。
+</div>
+
+<div class="mt-3 text-sm">
+
+<p class="absolute top-23 right-14 z-99 rounded border border-teal-800/30 bg-teal-700/90 px-4 py-3 text-xs leading-relaxed text-sky-100" v-click.hide v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" :leave="{opacity:0,y:50}">Vue SFC：同一塊 UI 的資料、畫面、使用方式放在同一個檔案</p>
+
+<div class="vue-sfc-magic">
+
+````md magic-move [ProductList.vue ~i-logos:vue~]{lines: true}
+```vue
+<script setup lang="ts">
+const products = [
+  { id: 1, name: '鍵盤', price: 299 },
+  { id: 2, name: '滑鼠', price: 499 },
+]
+</script>
 ```
 
+```vue
+<script setup lang="ts">
+const products = [
+  { id: 1, name: '鍵盤', price: 299 },
+  { id: 2, name: '滑鼠', price: 499 },
+]
+</script>
+
+<template>
+  <div class="product-list">
+    <ProductCard
+      v-for="p in products"
+      :key="p.id"
+      :name="p.name"
+      :price="p.price"
+    />
+  </div>
+</template>
+```
+
+```vue
+<script setup lang="ts">
+const products = [
+  { id: 1, name: '鍵盤', price: 299 },
+  { id: 2, name: '滑鼠', price: 499 },
+]
+</script>
+
+<template>
+  <div class="product-list">
+    <div v-for="p in products" :key="p.id" class="card">
+      <h3>{{ p.name }}</h3>
+      <p>NT$ {{ p.price }}</p>
+      <button>加入購物車</button>
+    </div>
+  </div>
+</template>
+```
+````
+
 </div>
 
-<div v-motion :initial="{opacity:0,y:-100}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="mt-6 text-base text-center" v-click="2">
-  Vue 元件 ≈ 加強版的
-  <span v-mark.circle.green="3">Razor Partial</span>
-  <carbon:arrow-right class="inline ml-1" />
+<div class="mt-5 grid grid-cols-3 gap-3">
+  <div v-click="1" class="rounded border border-emerald-400/30 bg-emerald-400/8 px-3 py-2 text-emerald-100" v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}">
+    <strong class="text-emerald-300">資料</strong><br>
+    <code>&lt;script setup&gt;</code> 裡準備商品清單。
+  </div>
+  <div v-click="2" class="rounded border border-violet-400/30 bg-violet-400/8 px-3 py-2 text-violet-100" v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}">
+    <strong class="text-violet-300">Data-driven</strong><br>
+    <code>v-for</code> 依資料產生畫面。
+  </div>
+  <div v-click="3" class="rounded border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-amber-100" v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}">
+    <strong class="text-amber-300">元件邊界</strong><br>
+    同一塊 UI 的結構與邏輯集中。
+  </div>
 </div>
 
-<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="mt-1 text-base text-center text-amber-300 underline" v-click="3">
- 簡單來說，把元件當作一個可以重複執行的 function，隨時可重複呼叫，並且輸出固定
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="mt-4 rounded border border-slate-400/30 bg-white/8 p-3 text-sm text-slate-100" v-click="4">
+  這就是 Vue 的 Single File Component：<br>
+  <span class="font-bold text-amber-300">一個檔案描述一塊 UI；需要時，再以元件或路由切出去。</span>
+</div>
+
 </div>
 
 <!--
@@ -361,12 +456,126 @@ Vue 元件不是什麼神奇的新概念。
 
 ---
 level: 2
+layout: two-cols-header
+layoutClass: gap-10
+---
+
+# 為什麼 Data-driven 這麼重要？
+
+***畫面不是手動改出來的，而是資料狀態的投影***
+
+::left::
+
+<div class="mt-4 text-sm pr-1 border-r-1 border-slate-300/50" v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}">
+
+**命令式：每個 DOM 都要自己同步**
+
+```js [jquery-cart.js ~i-logos:javascript~]
+function updateCart(items) {
+  $('#cartCount').text(items.length)
+  $('#total').text(calcTotal(items))
+  $('#emptyHint').toggle(items.length === 0)
+  $('#checkoutBtn').prop('disabled', items.length === 0)
+}
+```
+
+<div v-click="1" class="mt-4 rounded border border-red-400/30 bg-red-400/8 px-3 py-2 text-red-100" v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}">
+  問題不是語法醜，而是同步責任散在各處。<br>
+  漏掉一個 DOM，畫面就跟資料不一致。
+</div>
+
+</div>
+
+::right::
+
+<div class="mt-4 text-sm pl-1"v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}"> 
+
+**宣告式：資料變，畫面自然跟著變**
+
+```vue [CartSummary.vue ~i-logos:vue~]
+<script setup lang="ts">
+const items = ref<CartItem[]>([])
+const total = computed(() =>
+  items.value.reduce((sum, item) => sum + item.price, 0)
+)
+</script>
+
+<template>
+  <p>{{ items.length }}</p>
+  <p>NT$ {{ total }}</p>
+  <p v-if="items.length === 0">購物車是空的</p>
+  <button :disabled="items.length === 0">結帳</button>
+</template>
+```
+
+<div v-click="2" class="mt-4 rounded border border-emerald-400/30 bg-emerald-400/8 px-3 py-2 text-emerald-100" v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}">
+  重點：保留一份 <span class="bold text-orange-400">source of truth</span>。<br>
+  其他畫面狀態都從資料推導出來。
+</div>
+
+</div>
+
+<!--
+這頁要把 data-driven 講成 Vue 的核心轉換：
+以前是「我去改畫面」，現在是「我改資料，畫面描述資料該長什麼樣」。
+這可以銜接 Part 4 響應式系統。
+-->
+
+---
+level: 2
+---
+
+# 元件化真正逼你思考的事
+
+> <p class="italic text-amber-200 underline">不是把檔案塞在一起這麼單純，而是用元件邊界設計整個前端系統，迫使開發人員站在更高維度看整個系統</p>
+
+<div class="mt-5 grid grid-cols-2 gap-4 text-sm">
+
+<div v-click="1" class="rounded border border-sky-400/30 bg-sky-400/10 px-4 py-3 text-sky-100">
+  <div class="mb-2 font-bold text-sky-300">1. 結構與邏輯集中</div>
+
+  `SFC`、`CSS-in-JS`、甚至 `Bootstrap` class 都在解同一個痛點：讓「這塊 UI 怎麼長、怎麼動、依賴什麼狀態」更靠近使用現場。
+</div>
+
+<div v-click="2" class="rounded border border-violet-400/30 bg-violet-400/10 px-4 py-3 text-violet-100">
+  <div class="mb-2 font-bold text-violet-300">2. 關注點分離，不是技術檔案分離</div>
+
+  真正的分離單位不是 `HTML` / `JS` / `CSS`，而是 feature、component、state、effect 這些責任邊界。
+</div>
+
+<div v-click="3" class="rounded border border-emerald-400/30 bg-emerald-400/8 px-4 py-3 text-emerald-100">
+  <div class="mb-2 font-bold text-emerald-300">3. 抽象後再拆細</div>
+
+  元件一拆細，就會出現資料傳遞問題：哪些是 props？哪些要 emit？哪些狀態應該往上提？哪些邏輯該抽成 `composable？`
+</div>
+
+<div v-click="4" class="rounded border border-amber-400/30 bg-amber-400/10 px-4 py-3 text-amber-100">
+  <div class="mb-2 font-bold text-amber-300">4. 站到更高維度設計</div>
+  你開始設計資料流、畫面流、互動流、結構流，而不是只是在某個按鈕 click 裡塞更多 DOM 操作。
+</div>
+
+</div>
+
+<div v-click="5" class="mt-5 rounded border border-white/20 bg-white/8 px-5 py-4 text-center text-base text-slate-100">
+  元件化的目的<br>
+  <span class="font-bold text-amber-300">是讓 UI 可以被理解、拆分、組合、傳遞資料，最後交給工具做 code splitting。</span>
+</div>
+
+<!--
+這頁是重點：要讓聽眾理解，Vue 不是把 HTML/CSS/JS 混在一起。
+它其實是把同一個 UI 邊界內的東西集中，然後迫使工程師把資料流與元件邊界設計清楚。
+對後端工程師可類比：不是按檔案類型分層，而是按 feature/aggregate/module 邊界思考。
+-->
+
+---
+level: 2
 ---
 
 # 前端為什麼一直有新框架？ <carbon-renew class="inline opacity-60" />
 
 <div v-motion :initial="{opacity:0,y:10}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="mt-2 text-base opacity-70 italic">
-  「求別再更新了，老子學不動了」— 經典名言
+
+>  「求別再更新了，老子學不動了」— 經典名言
 </div>
 
 <div class="mt-5 grid grid-cols-5 gap-2 text-xs">
@@ -378,7 +587,9 @@ level: 2
 </div>
 
 <div v-click="2" v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:350}}" class="p-3 rounded border border-blue-400/30 bg-blue-400/5">
-  <div class="text-blue-300 font-bold mb-2">2010 — <code>Backbone</code> / <code>Angular</code></div>
+  <div class="text-blue-300 font-bold mb-2">2010 — MVC 思維</div>
+  <code>Angular</code> / 
+  <code>Express</code> / <code>.NET Framework</code><br>
   ✅ MVC、雙向綁定<br>
   <span class="opacity-50">❌ 太重、曲線太陡、心智負擔重</span>
 </div>
@@ -401,14 +612,18 @@ level: 2
   <code>Svelte</code> · <code>SvelteKit</code><br>
   <code>Astro</code> · <code>SolidJS</code> · <code>Qwik</code><br>
   <code>TanStack</code> · <code>Vike</code> · ...<br>
-  <span class="opacity-50">❓ 選哪個?要學嗎？頭好暈</span>
+  <span class="opacity-50">❓ 選哪個?有必要學嗎？</span>
 </div>
 
 </div>
 
 <div v-click="6" v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="mt-5 p-3 rounded bg-teal-400/10 border border-teal-400/30 text-sm text-teal-200">
-  好消息：<strong>核心概念沒有變</strong> — 元件、響應式、<span v-mark.amber="7">狀態管理</span>、<span v-mark.amber="7">資料驅動畫面(Data-driven)</span><br>
+  好消息：<strong>核心概念沒有變</strong> — 元件、響應式、<span v-mark.red="7">狀態管理</span>、<span v-mark.red="7">資料驅動畫面(Data-driven)</span><br>
   理解這些之後，下一個「新技術」對你來說只是換個語法而已
+</div>
+
+<div v-click="6" v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="mt-5 p-3 rounded bg-amber-400/10 border border-amber-400/30 text-sm text-amber-200">
+  老話一句，技術的出現都是為了解決既有的問題，同時也會產生新的問題，理解並<span v-mark.red="7">判斷取捨</span>才是工程師的價值所在
 </div>
 
 <!--

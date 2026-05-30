@@ -74,3 +74,32 @@
 .slidev-layout::-webkit-scrollbar {
   display: none;
 }
+
+/* 2:3 columns for list + flowchart two-cols-header slides. */
+.slidev-layout.two-cols-header.list-flow-cols {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+}
+
+.jquery-chaos-code .slidev-code {
+  font-size: 0.68rem;
+  line-height: 1.32;
+}
+
+.jquery-chaos-code .slidev-code-magic-move {
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+
+.vue-sfc-magic .slidev-code {
+  font-size: 0.66rem;
+  line-height: 1.28;
+}
+
+.vue-sfc-magic .slidev-code-magic-move {
+  max-height: 270px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}

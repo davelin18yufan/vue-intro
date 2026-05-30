@@ -5,11 +5,16 @@ title: 欸，前端到底在幹嘛？
 info: |
   一個後端工程師的前端求生指南
   — 前端演化的核心關鍵
+colorSchema: dark
 transition: slide-left
 comark: true
-duration: 45min
+duration: 60min
 drawings:
   persist: false
+fonts:
+  sans: TASA Explorer
+  serif: Roboto Slab
+  mono: Fira Code
 ---
 
 # 欸，前端到底在幹嘛？ 
@@ -59,7 +64,7 @@ level: 2
 
 我們就是來看看：
 
-<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:500}}" class="text-blue-300">
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:500}}" class="text-blue-200">
 
 - 前端為什麼一直有新框架，更新速度快到跟不上（求別再更新了，老子學不動了）
 - Node.js 怎麼讓這一切成為可能
@@ -80,12 +85,14 @@ level: 2
 ---
 src: ./pages/part1-chaos.md#1
 layout: section
+title: Everything before SPA.
+level: 2
 transition: fade
 background: https://cover.sli.dev
 ---
 
 ---
-src: ./pages/part1-chaos.md#2-7
+src: ./pages/part1-chaos.md#2-10
 ---
 
 ---
