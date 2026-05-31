@@ -45,9 +45,9 @@ layoutClass: gap-10
   </a>
 </div>
 
-<div v-motion :initial="{opacity:0}" :enter="{opacity:1,transition:{delay:400,duration:400}}" class="mt-3 text-xs opacity-40">
+<Link v-motion :initial="{opacity:0}" :enter="{opacity:1,transition:{delay:400,duration:400}}" class="mt-3 text-xs opacity-40">
   https://zh-hk.vuejs.org/tutorial/#step-1
-</div>
+</Link>
 
 ::right::
 
@@ -163,6 +163,105 @@ level: 2
 -->
 
 ---
+level: 2
+---
+
+# Vue 生態系一覽：社群的創造力
+
+同一個框架基礎，社群堆出了整個工具宇宙，你遇到的問題幾乎都有現成方案
+
+<div class="grid grid-cols-3 gap-4 mt-4">
+
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="rounded-xl border border-violet-400/30 bg-violet-400/8 p-3">
+  <div class="mb-3 flex items-center gap-2 font-bold text-violet-300">
+    <carbon:application-web class="text-base" />
+    UI 元件庫
+  </div>
+  <div class="space-y-2 text-xs">
+    <a href="https://vuetifyjs.com" target="_blank" class="flex items-start gap-2 rounded p-1.5 hover:bg-white/5 transition-colors no-underline">
+      <span class="font-bold text-white">Vuetify</span>
+      <span class="opacity-60 leading-tight">Material Design 完整元件庫，開箱即用</span>
+    </a>
+    <a href="https://element-plus.org" target="_blank" class="flex items-start gap-2 rounded p-1.5 hover:bg-white/5 transition-colors no-underline">
+      <span class="font-bold text-white">Element Plus</span>
+      <span class="opacity-60 leading-tight">後台系統首選，企業級桌面元件</span>
+    </a>
+    <a href="https://www.naiveui.com" target="_blank" class="flex items-start gap-2 rounded p-1.5 hover:bg-white/5 transition-colors no-underline">
+      <span class="font-bold text-white">Naive UI</span>
+      <span class="opacity-60 leading-tight">TypeScript-first，主題客製化彈性高</span>
+    </a>
+    <a href="https://www.shadcn-vue.com" target="_blank" class="flex items-start gap-2 rounded p-1.5 hover:bg-white/5 transition-colors no-underline">
+      <span class="font-bold text-white">shadcn-vue</span>
+      <span class="opacity-60 leading-tight">複製即擁有，無樣式底層可完全客製</span>
+    </a>
+     <a href="https://chillcomponent.codlin.me/components/toggle-proactive/#%E5%85%83%E4%BB%B6%E5%8F%83%E6%95%B8" target="_blank" class="flex items-start gap-2 rounded p-1.5 hover:bg-white/5 transition-colors no-underline">
+      <span class="font-bold text-white">鱈魚的酷酷元件</span>
+    <span class="opacity-60 leading-tight">台灣資深 vue 專家，創意有趣滑順於一身</span>
+    </a>
+  </div>
+</div>
+
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:350,duration:400}}" class="rounded-xl border border-amber-400/30 bg-amber-400/8 p-3">
+  <div class="mb-3 flex items-center gap-2 font-bold text-amber-300">
+    <carbon:tool-box class="text-base" />
+    組合式工具庫
+  </div>
+  <div class="space-y-2 text-xs">
+    <a href="https://vueuse.org" target="_blank" class="flex items-start gap-2 rounded p-1.5 hover:bg-white/5 transition-colors no-underline">
+      <span class="font-bold text-white">VueUse</span>
+      <span class="opacity-60 leading-tight">200+ 組合式 API 工具函數，幾乎必裝</span>
+    </a>
+    <a href="https://vee-validate.logaretm.com" target="_blank" class="flex items-start gap-2 rounded p-1.5 hover:bg-white/5 transition-colors no-underline">
+      <span class="font-bold text-white">VeeValidate</span>
+      <span class="opacity-60 leading-tight">表單驗證，整合 Zod / Yup Schema</span>
+    </a>
+    <a href="https://tanstack.com/query/latest/docs/framework/vue/overview" target="_blank" class="flex items-start gap-2 rounded p-1.5 hover:bg-white/5 transition-colors no-underline">
+      <span class="font-bold text-white">TanStack Query</span>
+      <span class="opacity-60 leading-tight">非同步狀態管理、快取、重試一次搞定</span>
+    </a>
+    <a href="https://vue-i18n.intlify.dev" target="_blank" class="flex items-start gap-2 rounded p-1.5 hover:bg-white/5 transition-colors no-underline">
+      <span class="font-bold text-white">Vue I18n</span>
+      <span class="opacity-60 leading-tight">多語系國際化，官方推薦方案</span>
+    </a>
+  </div>
+</div>
+
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="rounded-xl border border-sky-400/30 bg-sky-400/8 p-3">
+  <div class="mb-3 flex items-center gap-2 font-bold text-sky-300">
+    <carbon:settings-services class="text-base" />
+    底層基礎設施
+  </div>
+  <div class="space-y-2 text-xs">
+    <a href="https://nitro.build" target="_blank" class="flex items-start gap-2 rounded p-1.5 hover:bg-white/5 transition-colors no-underline">
+      <span class="font-bold text-white">Nitro</span>
+      <span class="opacity-60 leading-tight">通用伺服器引擎，Nuxt 的底層，可獨立使用</span>
+    </a>
+    <a href="https://vitest.dev" target="_blank" class="flex items-start gap-2 rounded p-1.5 hover:bg-white/5 transition-colors no-underline">
+      <span class="font-bold text-white">Vitest</span>
+      <span class="opacity-60 leading-tight">Vite-native 單元測試，Jest 語法相容</span>
+    </a>
+    <a href="https://zod.dev" target="_blank" class="flex items-start gap-2 rounded p-1.5 hover:bg-white/5 transition-colors no-underline">
+      <span class="font-bold text-white">Zod</span>
+      <span class="opacity-60 leading-tight">TypeScript-first Schema 驗證，前後端共用</span>
+    </a>
+    <a href="https://github.com/unjs/ofetch" target="_blank" class="flex items-start gap-2 rounded p-1.5 hover:bg-white/5 transition-colors no-underline">
+      <span class="font-bold text-white">ofetch</span>
+      <span class="opacity-60 leading-tight">現代 HTTP client，Nuxt 內建使用</span>
+    </a>
+  </div>
+</div>
+
+</div>
+
+<!--
+不用一一介紹，帶過就好。
+
+重點是讓大家感受到：你想做的幾乎都有現成的。
+VueUse 值得特別提一下——它就像是 Vue 版的 Lodash，但是 Composition API 風格。
+TanStack Query 也值得一提——後端工程師很快就會需要它，因為前端非同步狀態比你想像的複雜。
+-->
+
+---
 layout: center
 class: text-center
 level: 2
@@ -184,7 +283,7 @@ level: 2
   :enter="{ y: 0, opacity: 1, transition: { delay: 500, duration: 600 } }"
   class="text-lg opacity-70 mt-3"
 >
-  從 Razor Pages 到 Vue 3 — 你比你想像的更準備好了
+  從傳統 MPA 到 Vue 3 — 我們準備好了
 </div>
 
 <div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:500}}" class="mt-8 grid grid-cols-3 gap-4 text-sm max-w-xl mx-auto">

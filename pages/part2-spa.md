@@ -90,7 +90,7 @@ level: 2
 
 <div class="flex items-center gap-2">
   <carbon-checkmark-filled class="text-green-400 flex-shrink-0" />
-  npm / pnpm — 套件管理（像 NuGet）
+  npm / pnpm — 套件管理
 </div>
 <div class="flex items-center gap-2">
   <carbon-checkmark-filled class="text-green-400 flex-shrink-0" />
@@ -158,7 +158,7 @@ level: 2
 
 <FrameworkTimeline />
 
-<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="p-3 rounded-xl border border-yellow-400/30 bg-yellow-400/8 text-sm mt-28 text-amber-400 italic text-center" v-click>
+<div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{duration:400}}" class="p-3 rounded-xl border border-yellow-400/30 bg-yellow-400/8 text-sm mt-10 text-amber-400 italic text-center" v-click>
 不可否認的是，前端的管轄範圍已經從純使用者端進化涵蓋到了伺服器端甚至可以組件出自己的後端(BFF)
 
 </div>
@@ -177,7 +177,7 @@ layoutClass: gap-8
 
 # 那為什麼選 Vue？
 
-沒有最好的解方只有最適合的
+沒有最好的解方只有最適合的，並做出取捨
 
 <div class="space-y-4 mt-4">
 
@@ -188,6 +188,9 @@ layoutClass: gap-8
     <div>• 需要自己配 Router、狀態管理、測試框架...</div>
     <div>• 社群生態豐富但分散，選擇太多反而困難</div>
   </div>
+  <div class="mt-2 pt-2 border-t border-red-400/20 text-xs text-sky-300/80 italic">
+    捨棄：前端市場最廣 · Meta 超大規模實戰驗證 · 第三方生態最豐富
+  </div>
 </div>
 
 <div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:150,duration:400}}" class="p-3 rounded-xl border border-yellow-400/30 bg-yellow-400/8 text-sm">
@@ -196,6 +199,9 @@ layoutClass: gap-8
     <div>• 超重量級，像是前端版的 .NET MVC（不是壞事，但很胖）</div>
     <div>• 大量 Decorator、DI、Module... 就是大卡車那種感覺</div>
     <div>• 學習曲線更高更不直覺是三者中最陡峭的</div>
+  </div>
+  <div class="mt-2 pt-2 border-t border-yellow-400/20 text-xs text-sky-300/80 italic">
+    捨棄：最嚴謹的架構規範（大型團隊） · DI 讓測試最容易 · 企業規格最完整
   </div>
 </div>
 

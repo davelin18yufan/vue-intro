@@ -10,6 +10,7 @@ interface TimelineItem {
   problem: string
   description: string
   isHighlighted?: boolean
+  nodeBgClass?: string
 }
 
 const items: TimelineItem[] = [
@@ -22,6 +23,7 @@ const items: TimelineItem[] = [
     problem: "瀏覽器 API 各自為政，Chrome 做法不同，Firefox 做法不同",
     description:
       "一套 API 統一所有瀏覽器，讓 DOM 操作簡單到只要 $() 就搞定，鏈式呼叫到今天都還是很棒的設計",
+    nodeBgClass: "bg-white/50",
   },
   {
     year: 2010,
@@ -72,6 +74,7 @@ const items: TimelineItem[] = [
     color: "emerald",
     problem: "Vue SSR 配置複雜，沒有統一的全端開發規範",
     description: "Vue 生態的 Meta 框架，Vite 驅動，後端工程師的前端首選",
+    isHighlighted: true,
   },
   {
     year: 2022,
@@ -83,6 +86,7 @@ const items: TimelineItem[] = [
       "不是每個頁面都需要完整 SPA，內容型網站(CMS)、互動區塊、後端渲染各有適合的位置。",
     description:
       "Astro 強調 islands architecture，Svelte 走編譯器路線，HTMX 重新擁抱 server-rendered HTML。前端開始走向混合式、多元式的取捨。",
+    nodeBgClass: "bg-white/50",
   },
 ]
 
@@ -114,7 +118,8 @@ function toggleItem(item: TimelineItem) {
           <!-- Logo node -->
           <div
             :class="[
-              'relative z-10 flex h-9 w-9 items-center justify-center rounded-full border bg-gray-950/90 transition-all duration-300',
+              'relative z-10 flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300',
+              item.nodeBgClass ?? 'bg-gray-950/90',
               item.isHighlighted
                 ? 'border-green-400 shadow-lg shadow-green-400/40'
                 : 'border-white/25',

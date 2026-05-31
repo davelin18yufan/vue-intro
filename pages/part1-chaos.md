@@ -327,21 +327,21 @@ public class ProductViewModel
 ::
 
 <div class="mt-5 grid grid-cols-3 gap-3">
-  <div v-click="1" class="rounded border border-sky-400/30 bg-sky-400/10 px-3 py-2 text-sky-100">
+  <div v-click="1" v-motion class="rounded border border-sky-400/30 bg-sky-400/10 px-3 py-2 text-sky-100" :initial="{opacity:0,y:50}" :enter="{opacity:1,y:0,transition:{duration:350}}">
     <strong class="text-sky-300">資料模型</strong><br>
     C# 定義畫面需要哪些資料。
   </div>
-  <div v-click="2" class="rounded border border-violet-400/30 bg-violet-400/10 px-3 py-2 text-violet-100">
+  <div v-click="2" class="rounded border border-violet-400/30 bg-violet-400/10 px-3 py-2 text-violet-100" :initial="{opacity:0,y:50}" :enter="{opacity:1,y:0,transition:{duration:350}}" v-motion>
     <strong class="text-violet-300">畫面片段</strong><br>
     Partial 定義一張卡片怎麼產生 HTML。
   </div>
-  <div v-click="3" class="rounded border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-amber-100">
+  <div v-click="3" class="rounded border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-amber-100" :initial="{opacity:0,y:50}" :enter="{opacity:1,y:0,transition:{duration:350}}" v-motion>
     <strong class="text-amber-300">使用位置</strong><br>
     頁面迴圈呼叫 Partial，避免複製貼上。
   </div>
 </div>
 
-<div v-click="4" class="mt-4 rounded border border-emerald-400/30 bg-emerald-400/8 px-4 py-3 text-emerald-100">
+<div v-click="4" class="mt-4 rounded border border-emerald-400/30 bg-emerald-400/8 px-4 py-3 text-emerald-100" :initial="{opacity:0,x:100}" :enter="{opacity:1,x:0,transition:{duration:350}}" v-motion>
   稱為後端，是因為 Razor 在伺服器上執行：伺服器把資料套進 Partial，組成完整 HTML 後才送到瀏覽器，並且以上語法都是 <code>C#</code> 的語法糖而已。
 </div>
 
@@ -374,10 +374,10 @@ level: 2
 ````md magic-move [ProductList.vue ~i-logos:vue~]{lines: true}
 ```vue
 <script setup lang="ts">
-const products = [
-  { id: 1, name: '鍵盤', price: 299 },
-  { id: 2, name: '滑鼠', price: 499 },
-]
+  const products = [
+    { id: 1, name: '鍵盤', price: 299 },
+    { id: 2, name: '滑鼠', price: 499 },
+  ]
 </script>
 ```
 
@@ -439,7 +439,7 @@ const products = [
 </div>
 
 <div v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}" class="mt-4 rounded border border-slate-400/30 bg-white/8 p-3 text-sm text-slate-100" v-click="4">
-  這就是 Vue 的 Single File Component：<br>
+  這就是 Vue 用來實現元件化的 Single File Component：<br>
   <span class="font-bold text-amber-300">一個檔案描述一塊 UI；需要時，再以元件或路由切出去。</span>
 </div>
 
@@ -457,20 +457,19 @@ Vue 元件不是什麼神奇的新概念。
 ---
 level: 2
 layout: two-cols-header
-layoutClass: gap-10
 ---
 
 # 為什麼 Data-driven 這麼重要？
 
-***畫面不是手動改出來的，而是資料狀態的投影***
+***就像 Excel 公式格：你改 A1，B1 自動重算——你不需要「告訴 B1 更新」***
 
 ::left::
 
-<div class="mt-4 text-sm pr-1 border-r-1 border-slate-300/50" v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}">
+<div class=" text-sm pr-1 border-r-1 border-slate-300/50" v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}">
 
 **命令式：每個 DOM 都要自己同步**
 
-```js [jquery-cart.js ~i-logos:javascript~]
+```js {*|4} [jquery-cart.js ~i-logos:javascript~]
 function updateCart(items) {
   $('#cartCount').text(items.length)
   $('#total').text(calcTotal(items))
@@ -481,23 +480,23 @@ function updateCart(items) {
 
 <div v-click="1" class="mt-4 rounded border border-red-400/30 bg-red-400/8 px-3 py-2 text-red-100" v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}">
   問題不是語法醜，而是同步責任散在各處。<br>
-  漏掉一個 DOM，畫面就跟資料不一致。
+  加了商品、數量更新了，但<span class="font-bold text-red-300">漏掉第 4 行</span>——空購物車提示還殘留著。
 </div>
 
 </div>
 
 ::right::
 
-<div class="mt-4 text-sm pl-1"v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}"> 
+<div class=" text-sm pl-1"v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}"> 
 
 **宣告式：資料變，畫面自然跟著變**
 
-```vue [CartSummary.vue ~i-logos:vue~]
+```vue {*|2,9-12}[CartSummary.vue ~i-logos:vue~]
 <script setup lang="ts">
-const items = ref<CartItem[]>([])
-const total = computed(() =>
-  items.value.reduce((sum, item) => sum + item.price, 0)
-)
+  const items = ref<CartItem[]>([])
+  const total = computed(() =>
+    items.value.reduce((sum, item) => sum + item.price, 0)
+  )
 </script>
 
 <template>
@@ -509,15 +508,21 @@ const total = computed(() =>
 ```
 
 <div v-click="2" class="mt-4 rounded border border-emerald-400/30 bg-emerald-400/8 px-3 py-2 text-emerald-100" v-motion :initial="{opacity:0,y:20}" :enter="{opacity:1,y:0,transition:{delay:300,duration:400}}">
-  重點：保留一份 <span class="bold text-orange-400">source of truth</span>。<br>
-  其他畫面狀態都從資料推導出來。
+  保留一份 <span class="font-bold text-orange-400" v-mark.red="2">source of truth</span>（即 <code>items</code>）。<br>
+  只要它是對的，count、total、emptyHint 全部不可能跑掉。
 </div>
 
 </div>
 
 <!--
-這頁要把 data-driven 講成 Vue 的核心轉換：
-以前是「我去改畫面」，現在是「我改資料，畫面描述資料該長什麼樣」。
+這頁要把 data-driven 講成 Vue 的核心轉換。
+
+副標題就是類比：改 A1，B1 自動算——這就是 data-driven 的直覺。
+
+[click] 點亮第 4 行：這就是最容易被遺漏的那個 DOM 同步。漏掉它，畫面就說謊。
+
+[click] Vue 的解法：只保留 items 這一份 source of truth，其他所有畫面狀態都從它推導，不可能跑掉。
+
 這可以銜接 Part 4 響應式系統。
 -->
 
@@ -525,38 +530,38 @@ const total = computed(() =>
 level: 2
 ---
 
-# 元件化真正逼你思考的事
+# 元件化: `FP(Functional Programming)` 的概念延伸
 
 > <p class="italic text-amber-200 underline">不是把檔案塞在一起這麼單純，而是用元件邊界設計整個前端系統，迫使開發人員站在更高維度看整個系統</p>
 
 <div class="mt-5 grid grid-cols-2 gap-4 text-sm">
 
-<div v-click="1" class="rounded border border-sky-400/30 bg-sky-400/10 px-4 py-3 text-sky-100">
+<div v-click="1" class="rounded border border-sky-400/30 bg-sky-400/10 px-4 py-3 text-sky-100" v-motion :initial="{opacity:0,scale:0}" :enter="{opacity:1,scale:1,transition:{duration:350}}">
   <div class="mb-2 font-bold text-sky-300">1. 結構與邏輯集中</div>
 
   `SFC`、`CSS-in-JS`、甚至 `Bootstrap` class 都在解同一個痛點：讓「這塊 UI 怎麼長、怎麼動、依賴什麼狀態」更靠近使用現場。
 </div>
 
-<div v-click="2" class="rounded border border-violet-400/30 bg-violet-400/10 px-4 py-3 text-violet-100">
+<div v-click="2" class="rounded border border-violet-400/30 bg-violet-400/10 px-4 py-3 text-violet-100" v-motion :initial="{opacity:0,scale:0}" :enter="{opacity:1,scale:1,transition:{duration:350}}">
   <div class="mb-2 font-bold text-violet-300">2. 關注點分離，不是技術檔案分離</div>
 
   真正的分離單位不是 `HTML` / `JS` / `CSS`，而是 feature、component、state、effect 這些責任邊界。
 </div>
 
-<div v-click="3" class="rounded border border-emerald-400/30 bg-emerald-400/8 px-4 py-3 text-emerald-100">
+<div v-click="3" class="rounded border border-emerald-400/30 bg-emerald-400/8 px-4 py-3 text-emerald-100" v-motion :initial="{opacity:0,scale:0}" :enter="{opacity:1,scale:1,transition:{duration:350}}">
   <div class="mb-2 font-bold text-emerald-300">3. 抽象後再拆細</div>
 
   元件一拆細，就會出現資料傳遞問題：哪些是 props？哪些要 emit？哪些狀態應該往上提？哪些邏輯該抽成 `composable？`
 </div>
 
-<div v-click="4" class="rounded border border-amber-400/30 bg-amber-400/10 px-4 py-3 text-amber-100">
+<div v-click="4" class="rounded border border-amber-400/30 bg-amber-400/10 px-4 py-3 text-amber-100" v-motion :initial="{opacity:0,scale:0}" :enter="{opacity:1,scale:1,transition:{duration:350}}">
   <div class="mb-2 font-bold text-amber-300">4. 站到更高維度設計</div>
   你開始設計資料流、畫面流、互動流、結構流，而不是只是在某個按鈕 click 裡塞更多 DOM 操作。
 </div>
 
 </div>
 
-<div v-click="5" class="mt-5 rounded border border-white/20 bg-white/8 px-5 py-4 text-center text-base text-slate-100">
+<div v-click="5" class="mt-5 rounded border border-white/20 bg-white/8 px-5 py-4 text-center text-base text-slate-100" v-motion :initial="{opacity:0,scale:0}" :enter="{opacity:1,scale:1,transition:{duration:350}}">
   元件化的目的<br>
   <span class="font-bold text-amber-300">是讓 UI 可以被理解、拆分、組合、傳遞資料，最後交給工具做 code splitting。</span>
 </div>
