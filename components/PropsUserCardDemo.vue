@@ -9,7 +9,7 @@ interface UserCard {
 
 const users: UserCard[] = [
   { name: 'Ting', role: 'Backend Engineer', isAdmin: true, status: 'online', icon: 'i-carbon-server-proxy' },
-  { name: 'Kelly', role: 'Frontend Engineer', status: 'busy', icon: 'i-logos:vue' },
+  { name: 'Kelly', role: 'Supportive Engineer', status: 'busy', icon: 'i-carbon-user-avatar' },
   { name: 'Ada', role: 'PM', status: 'offline', icon: 'i-carbon-user-profile' },
 ]
 
@@ -29,7 +29,7 @@ const statusText: Record<UserCard['status'], string> = {
 <template>
   <div class="rounded border border-white/15 bg-white/6 p-3">
     <div class="mb-2 flex items-center justify-between text-xs">
-      <div class="font-bold text-sky-300">父: UserList.vue</div>
+      <div class="font-bold text-blue-400">Team members</div>
       <div class="text-slate-400">same component, different props</div>
     </div>
 

@@ -12,7 +12,7 @@
 ---
 level: 2
 ---
-# 模板引擎 Template Engine
+# 模板引擎語法糖 Template Engine
 
 <div class="mt-5 grid grid-cols-[1.2fr_1fr] gap-5 text-sm">
 
@@ -50,23 +50,23 @@ level: 2
 </div>
 
 <div class="space-y-3">
-  <div v-click="2" class="rounded border border-sky-400/30 bg-sky-400/10 px-3 py-2 text-sky-100">
+  <div v-click="2" class="rounded border border-sky-400/30 bg-sky-400/10 px-3 py-2 text-sky-100" v-motion :initial="{opacity:0,x:100}" :enter="{opacity:1,x:0,transition:{duration:350}}">
     <strong class="text-sky-300">結構仍然是 HTML</strong><br>
     <code>&lt;template&gt;</code> 描述畫面骨架，元素與語意先保持清楚。
   </div>
-  <div v-click="3" class="rounded border border-emerald-400/30 bg-emerald-400/8 px-3 py-2 text-emerald-100">
+  <div v-click="3" class="rounded border border-emerald-400/30 bg-emerald-400/8 px-3 py-2 text-emerald-100" v-motion :initial="{opacity:0,x:100}" :enter="{opacity:1,x:0,transition:{duration:350}}">
     <strong class="text-emerald-300">插入變數資料</strong><br>
     <code>&#123;&#123; product.name &#125;&#125;</code> 把資料顯示到畫面文字中。
   </div>
-  <div v-click="4" class="rounded border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-amber-100">
+  <div v-click="4" class="rounded border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-amber-100" v-motion :initial="{opacity:0,x:100}" :enter="{opacity:1,x:0,transition:{duration:350}}">
     <strong class="text-amber-300">綁定動態值</strong><br>
     <code>:disabled</code>、<code>:class</code> 讓屬性跟著狀態改變。
   </div>
-  <div v-click="5" class="rounded border border-violet-400/30 bg-violet-400/10 px-3 py-2 text-violet-100">
+  <div v-click="5" class="rounded border border-violet-400/30 bg-violet-400/10 px-3 py-2 text-violet-100" v-motion :initial="{opacity:0,x:100}" :enter="{opacity:1,x:0,transition:{duration:350}}">
     <strong class="text-violet-300">綁定使用者事件</strong><br>
     <code>@click="addToCart"</code> 把按鈕點擊交給函式處理。
   </div>
-  <div v-click="6" class="rounded border border-white/20 bg-white/8 px-3 py-2 text-slate-100">
+  <div v-click="6" class="rounded border border-white/20 bg-white/8 px-3 py-2 text-slate-100" v-motion :initial="{opacity:0,x:100}" :enter="{opacity:1,x:0,transition:{duration:350}}">
     <strong class="text-violet-300">模板只負責描述</strong><br>
     資料從 <code>&lt;script setup&gt;</code> 來，畫面由資料驅動產生。
   </div>
@@ -215,15 +215,18 @@ level: 2
 
 **1. 父層包裝：決定資料從哪裡來**
 
-```vue [UserList.vue ~i-logos:vue~]
-<UserCard
-  v-for="user in users"
-  :key="user.name"
-  :name="user.name"
-  :role="user.role"
-  :status="user.status"
-  :is-admin="user.isAdmin"
-/>
+```jsx [UserList.vue ~i-logos:vue~]
+<div class="user-list">
+  <p class="user-list--title">Team members</p>
+  <UserCard
+    v-for="user in users"
+    :key="user.name"
+    :name="user.name"
+    :role="user.role"
+    :status="user.status"
+    :is-admin="user.isAdmin"
+  />
+</div>
 ```
 
 </div>

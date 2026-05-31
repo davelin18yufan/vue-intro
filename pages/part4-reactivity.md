@@ -163,11 +163,13 @@ count.value++             // Vue 追蹤到變更
   按下按鈕只改 <code>n.value</code>；畫面上的數字由 Vue 自動更新。
 </div>
 
-```vue {1-4|7-11|all}{maxHeight:'175px'}
+```vue {3-7|12|all}{maxHeight:'175px'}
 <!-- Counter.vue 簡化版 -->
 <script setup>
   import { ref } from 'vue'
-  const props = defineProps(['count'])
+  const props = defineProps({
+    count: { default: 0 },
+  })
   const n = ref(props.count)
 </script>
 
@@ -206,7 +208,7 @@ const price    = ref(299)
 const quantity = ref(3)
 ```
 
-```ts {*|7-9}
+```ts {*|6-9}
 import { ref, computed } from 'vue'
 
 const price    = ref(299)
@@ -218,7 +220,7 @@ const total = computed(() => price.value * quantity.value)
 // total.value 現在是 897
 ```
 
-```ts {*|10-12|13-14}
+```ts {*}
 import { ref, computed } from 'vue'
 
 const price    = ref(299)
@@ -375,7 +377,6 @@ layoutClass: gap-6
 <div class="text-sm text-slate-300 mb-3">
 左邊看資料與推導邏輯，右邊看同一個模型如何驅動畫面。
 </div>
-
 
 ```vue {monaco}{maxHeight:'360px'}
 <script setup>
