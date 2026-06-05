@@ -160,6 +160,20 @@ level: 2
 <!--
 這頁不用深入介紹，讓大家知道有這些東西就好。
 等他們學會 Vue 基礎之後，自然會需要這些工具。
+
+📌 每個工具的一句話類比，講給後端聽：
+
+Vue Router → 「就像 ASP.NET 的 Route，但切換頁面不需要向伺服器 request，瀏覽器自己搞定。」
+  常見問題：「網址怎麼是 /products 但沒有呼叫後端？」→ 前端 Router 攔截了。
+
+Pinia → 「跨元件共享狀態，概念像後端的 Singleton Service 或 Session，但活在瀏覽器記憶體。」
+  什麼時候需要：購物車、目前登入的使用者、多個頁面共用的篩選條件。
+
+Nuxt 3 → 「如果要 SSR 或 SSG，用 Nuxt。概念像 ASP.NET Core MVC，但前後端都是 TypeScript。」
+  什麼時候需要：SEO 有要求的公開頁面、行銷頁、部落格。
+
+Vite → 「這個專案就在用。概念像 MSBuild / webpack，但 dev server 啟動只要 < 1 秒。」
+  後端工程師的感受：不像以前 webpack 要等 30 秒的年代了。
 -->
 
 ---
@@ -259,6 +273,18 @@ level: 2
 重點是讓大家感受到：你想做的幾乎都有現成的。
 VueUse 值得特別提一下——它就像是 Vue 版的 Lodash，但是 Composition API 風格。
 TanStack Query 也值得一提——後端工程師很快就會需要它，因為前端非同步狀態比你想像的複雜。
+
+📌 可以點名幾個重點：
+
+VueUse：「幾乎必裝。useLocalStorage、useFetch、useMediaQuery... 200+ 個 composable，你能想到的都有。」
+
+TanStack Query：「後端工程師寫前端最常踩的坑是非同步資料管理：loading state、error handling、快取、重試。TanStack Query 一包搞定。」
+
+VeeValidate + Zod：「表單驗證搭配 Zod schema，後端也能共用同一份驗證邏輯。」
+
+鱈魚的酷酷元件：「台灣資深 Vue 工程師做的，UI 很有創意，也可以學到很多進階寫法。」
+
+📌 結語：「這些工具你今天不需要全部學，等你需要的時候自然會找到它們。先把 Vue 基礎打好，其他東西都是加法。」
 -->
 
 ---

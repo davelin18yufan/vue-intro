@@ -427,4 +427,21 @@ layoutClass: gap-6
 讓大家看到：code 改的東西，就是右邊在做的事情。
 
 可以讓現場的人自己試試看。
+
+📌 建議現場互動順序：
+
+1. 先讓大家看右邊的 LiveDemo，在輸入框打字，觀察問候語即時變化。
+   「看到了嗎？沒有一行 DOM 操作。」
+
+2. 指著左邊的 computed：「這是唯一的邏輯，畫面只是呈現它的結果。」
+
+3. 邀請大家可以試試：
+   → 把 fullName 的順序改成 `${firstName.value}${lastName.value}`（先名後姓）
+   → 把 greeting 的條件改成自己的邏輯
+   → 加一個新的 computed，比如 `const nameLength = computed(() => fullName.value.length)`
+
+4. 如果現場有時間，問大家：「如果用 jQuery 要怎麼做這件事？」
+   → 讓他們感受差異，不用自己說。
+
+💡 這一張是 Part 4 最有感的落點，確保大家在這裡「開竅」再往下走。
 -->

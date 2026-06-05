@@ -167,6 +167,18 @@ level: 2
 
 重點：Vue 出現是因為 Angular 太重、React 對後端來說太難。
 Evan You 自己就是前端工程師，他知道什麼叫「學習友善」。
+
+📌 每個節點可以簡單說：
+  2010 Angular 1 → Google 帶來 MVC 概念，但太複雜
+  2013 React → Facebook 帶來 Component，但 JSX 對後端很陌生
+  2014 Vue → Evan You：「我就想要一個好上手的 React / Angular 替代品」
+  2016 Angular 2 → Google 重寫了，打破向後相容，社群大暴走
+  2016+ Next/Nuxt → SPA 的 SEO 問題逼出了 Meta Framework
+
+📌 如果有人問「現在選哪個？」
+  → 學習：Vue；工作有要求：配合公司；不知道：Vue 或 React 都行，概念通用。
+
+📌 結尾金句：「每一個框架都是為了解決前一個的問題而生，但同時也帶來新的問題。」
 -->
 
 ---
