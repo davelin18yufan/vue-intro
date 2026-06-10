@@ -114,7 +114,7 @@ background: https://cover.sli.dev
 ---
 
 ---
-src: ./pages/part3-components.md#2-6
+src: ./pages/part3-components.md#2-8
 ---
 
 ---

@@ -157,13 +157,13 @@ count.value++             // Vue 追蹤到變更
 
 <div class="mb-2 font-bold text-sky-300">現場示範：同一個 ref 驅動畫面</div>
 
-<Counter :count="3" />
+<Counter :count="0" />
 
 <div class="mt-3 rounded border border-white/15 bg-white/6 px-3 py-2 text-xs text-slate-300">
   按下按鈕只改 <code>n.value</code>；畫面上的數字由 Vue 自動更新。
 </div>
 
-```vue {3-7|12|all}{maxHeight:'175px'}
+```vue {2-8|12|all}{maxHeight:'175px'}
 <!-- Counter.vue 簡化版 -->
 <script setup>
   import { ref } from 'vue'
@@ -195,7 +195,7 @@ level: 2
 
 # computed()：懶人救星
 
-<div class="text-sm text-slate-300 mb-3">
+<div class="text-sm text-slate-300 ">
 當一個值可以從其他狀態推導出來，就不要另外存一份；交給 <code>computed()</code> 維持同步。
 </div>
 
@@ -239,7 +239,7 @@ const summary = computed(() =>
 ```
 ````
 
-<div class="mt-3 grid grid-cols-3 gap-2 text-xs">
+<div class="mt-1 grid grid-cols-3 gap-2 text-xs">
   <div v-click="1" class="rounded border border-sky-400/30 bg-sky-400/10 px-3 py-2 text-sky-100" v-motion
   :initial="{opacity:0}"
   :enter="{opacity:1,transition:{duration:400}}">
@@ -257,6 +257,19 @@ const summary = computed(() =>
   :enter="{opacity:1,transition:{duration:400}}">
     <div class="mb-1 font-bold text-amber-300">3. 依賴改才重算</div>
     改 <code>price.value</code>，相關 computed 會自動更新。
+  </div>
+</div>
+
+<div v-click="4" class="mt-1 grid grid-cols-2 gap-1.5 text-[10px]" v-motion :initial="{opacity:0,x:100}" :enter="{opacity:1,x:0,transition:{duration:350}}">
+  <div class="rounded border border-rose-400/30 bg-rose-400/10 px-2 py-1 text-rose-100">
+    <span class="font-bold text-rose-300">❌ 沒包 computed()</span>
+    <code class="block mt-0.5">const total = price.value * quantity.value</code>
+    <div class="opacity-60">只算一次，之後不再更新</div>
+  </div>
+  <div class="rounded border border-emerald-400/30 bg-emerald-400/10 px-2 py-1 text-emerald-100">
+    <span class="font-bold text-emerald-300">✓ 有包 computed()</span>
+    <code class="block mt-0.5">const total = computed(() => price.value * quantity.value)</code>
+    <div class="opacity-60">Vue 追蹤依賴，price 一變就重算</div>
   </div>
 </div>
 

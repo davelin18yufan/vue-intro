@@ -488,3 +488,134 @@ function onClick() {
 📌 類比後端：就像 HTTP 是單向 Request → Response。
   子元件「請求」（emit），父層「回應」（修改狀態，畫面更新）。
 -->
+
+---
+level: 2
+clicks: 6
+---
+
+# 實戰練習：拆解一個完整頁面
+
+點擊逐步看每個元件的邊界，觀察資料從哪裡來、往哪裡去
+
+<div class="mt-3 grid grid-cols-[1.4fr_1fr] gap-6 items-start">
+
+<ShopPageMockup :step="$clicks" v-motion :initial="{opacity:0,y:16}" :enter="{opacity:1,y:0,transition:{duration:400}}" />
+
+<div class="text-sm space-y-2">
+
+<div v-if="$clicks === 0" v-motion :initial="{opacity:0,x:30}" :enter="{opacity:1,x:0,transition:{duration:350}}" class="space-y-3">
+  <p class="text-slate-300">這是一個完整的購物頁面，試著想想它由哪些元件組成？</p>
+  <p class="text-slate-400 text-xs">💡 購物車的「加入 / ×」按鈕可以實際操作</p>
+  <p class="text-amber-300 text-xs font-mono">點擊 → 開始拆解</p>
+</div>
+
+<div v-if="$clicks === 1" v-motion :initial="{opacity:0,x:30}" :enter="{opacity:1,x:0,transition:{duration:350}}" class="space-y-2">
+  <div class="font-bold text-sky-300 text-base">ShopPage <span class="text-xs text-slate-400 font-normal">根元件</span></div>
+  <div class="space-y-1 text-xs text-slate-300">
+    <div>✓ 擁有 <code class="text-sky-200">products</code> 和 <code class="text-sky-200">cartItems</code> 狀態</div>
+    <div>✓ 所有資料的 source of truth</div>
+    <div>✓ 協調子元件之間的資料流</div>
+  </div>
+  <div class="mt-2 rounded bg-sky-400/8 border border-sky-400/20 px-2 py-1.5 font-mono text-[10px] text-sky-200">
+    const products = ref([...])<br>
+    const cartItems = ref([...])
+  </div>
+</div>
+
+<div v-if="$clicks === 2" v-motion :initial="{opacity:0,x:30}" :enter="{opacity:1,x:0,transition:{duration:350}}" class="space-y-2">
+  <div class="font-bold text-violet-300 text-base">NavBar <span class="text-xs text-slate-400 font-normal">導覽列</span></div>
+  <div class="space-y-1 text-xs text-slate-300">
+    <div>✓ 只需要知道 <code class="text-violet-200">:cart-count</code></div>
+    <div>✓ 不知道購物車裡有什麼</div>
+    <div>✓ 單一職責：顯示導覽列</div>
+  </div>
+  <div class="mt-2 rounded bg-violet-400/8 border border-violet-400/20 px-2 py-1.5 font-mono text-[10px] text-violet-200">
+    &lt;NavBar :cart-count="cartCount" /&gt;
+  </div>
+</div>
+
+<div v-if="$clicks === 3" v-motion :initial="{opacity:0,x:30}" :enter="{opacity:1,x:0,transition:{duration:350}}" class="space-y-2">
+  <div class="font-bold text-emerald-300 text-base">ProductGrid <span class="text-xs text-slate-400 font-normal">商品列表</span></div>
+  <div class="space-y-1 text-xs text-slate-300">
+    <div>✓ <code class="text-emerald-200">:products</code> 接收整個商品陣列</div>
+    <div>✓ 只負責排列 ProductCard</div>
+    <div>✓ 把 add-cart 事件繼續向上傳遞</div>
+  </div>
+  <div class="mt-2 rounded bg-emerald-400/8 border border-emerald-400/20 px-2 py-1.5 font-mono text-[10px] text-emerald-200">
+    &lt;ProductGrid<br>
+    &nbsp;&nbsp;:products="products"<br>
+    &nbsp;&nbsp;@add-cart="addToCart" /&gt;
+  </div>
+</div>
+
+<div v-if="$clicks === 4" v-motion :initial="{opacity:0,x:30}" :enter="{opacity:1,x:0,transition:{duration:350}}" class="space-y-2">
+  <div class="font-bold text-amber-300 text-base">ProductCard <span class="text-xs text-slate-400 font-normal">× 3，同一個元件</span></div>
+  <div class="space-y-1 text-xs text-slate-300">
+    <div>✓ <code class="text-amber-200">:product</code> 接收單筆商品資料</div>
+    <div>✓ 點擊「加入」時 emit <code class="text-amber-200">add-cart</code></div>
+    <div>✓ 不直接改狀態，只發出意圖</div>
+    <div>✓ 傳入不同資料，自動顯示不同</div>
+  </div>
+  <div class="mt-2 rounded bg-amber-400/8 border border-amber-400/20 px-2 py-1.5 font-mono text-[10px] text-amber-200">
+    &lt;ProductCard<br>
+    &nbsp;&nbsp;v-for="p in products"<br>
+    &nbsp;&nbsp;:product="p"<br>
+    &nbsp;&nbsp;@add-cart="addToCart" /&gt;
+  </div>
+</div>
+
+<div v-if="$clicks === 5" v-motion :initial="{opacity:0,x:30}" :enter="{opacity:1,x:0,transition:{duration:350}}" class="space-y-2">
+  <div class="font-bold text-rose-300 text-base">CartSidebar <span class="text-xs text-slate-400 font-normal">購物車側欄</span></div>
+  <div class="space-y-1 text-xs text-slate-300">
+    <div>✓ <code class="text-rose-200">:cart-items</code> 接收購物車陣列</div>
+    <div>✓ emit <code class="text-rose-200">remove</code> 請父層刪除商品</div>
+    <div>✓ 不直接改陣列，只發出意圖</div>
+  </div>
+  <div class="mt-2 rounded bg-rose-400/8 border border-rose-400/20 px-2 py-1.5 font-mono text-[10px] text-rose-200">
+    &lt;CartSidebar<br>
+    &nbsp;&nbsp;:cart-items="cartItems"<br>
+    &nbsp;&nbsp;@remove="removeItem" /&gt;
+  </div>
+</div>
+
+<div v-if="$clicks >= 6" v-motion :initial="{opacity:0,x:30}" :enter="{opacity:1,x:0,transition:{duration:350}}" class="space-y-2">
+  <div class="font-bold text-white text-base">拆解完成！</div>
+  <div class="space-y-1 text-xs">
+    <div class="text-sky-300">↓ props 資料永遠往下傳</div>
+    <div class="text-amber-300">↑ emit 意圖永遠往上送</div>
+    <div class="text-slate-300 mt-1">只有根元件能改狀態</div>
+    <div class="text-slate-300">子元件只負責顯示 + 通知</div>
+    <div class="text-slate-400 mt-1">→ 每個 emit 都只更新需要的部分，不重繪整個頁面</div>
+  </div>
+  <div class="mt-2 rounded bg-white/5 border border-white/15 px-2 py-1.5 font-mono text-[10px] text-slate-300">
+    &lt;NavBar :cart-count="cartCount" /&gt;<br>
+    &lt;ProductGrid :products="products"<br>
+    &nbsp;&nbsp;@add-cart="addToCart" /&gt;<br>
+    &lt;CartSidebar :cart-items="cartItems"<br>
+    &nbsp;&nbsp;@remove="removeItem" /&gt;
+  </div>
+</div>
+
+</div>
+</div>
+
+<!--
+這頁是 Part 3 的總結練習，讓大家親眼看到「拆元件」在實際頁面上是怎麼運作的。
+
+📌 重點：
+  Step 0 → 完整頁面，詢問「你覺得有哪些元件？」
+  Step 1 → ShopPage：強調「誰擁有狀態」是架構的核心問題
+  Step 2 → NavBar：只關心 cartCount，不需要知道 cartItems 細節 — 最小介面原則
+  Step 3 → ProductGrid：只負責排版，不關心個別卡片細節 — 單一職責
+  Step 4 → ProductCard：同一個元件被重複使用 3 次，靠 props 決定長相；emit 代替直接修改
+  Step 5 → CartSidebar：接收陣列，透過 emit 請父層刪 — 資料的擁有者才有修改權
+  Step 6 → 全部亮起來：帶出「只更新需要的部分」的核心優勢
+
+💡 可以現場 demo 一下：點「加入」按鈕，觀察只有 NavBar 的 badge 數字和 CartSidebar 更新，ProductGrid 沒有重繪。
+
+📌 延伸說明（視時間）：
+  → 如果購物車狀態放在 CartSidebar 自己裡面，NavBar 就看不到 cartCount。
+  → 這就是為什麼「狀態提升（lifting state up）」到共同祖先是 Vue / React 的常見模式。
+  → 更大的應用會用 Pinia / Vuex 來管理跨多層的狀態，避免 props drilling。
+-->
