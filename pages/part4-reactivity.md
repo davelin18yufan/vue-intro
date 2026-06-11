@@ -391,6 +391,7 @@ layoutClass: gap-6
 左邊看資料與推導邏輯，右邊看同一個模型如何驅動畫面。
 </div>
 
+````md magic-move {lines: true}
 ```vue {monaco}{maxHeight:'360px'}
 <script setup>
   import { ref, computed } from 'vue'
@@ -409,7 +410,8 @@ layoutClass: gap-6
       : '請輸入名字...'
   )
 </script>
-
+```
+```vue {monaco}{maxHeight:'360px'}
 <template>
   <div class="live-demo p-5 rounded-xl border border-green-400/30 bg-green-400/5">
     <div class="text-xs text-green-400 font-mono mb-3 opacity-70">▶ 這裡必須動態即時更新</div>
@@ -440,7 +442,7 @@ layoutClass: gap-6
   </div>
 </template>
 ```
-
+```
 
 ::right::
 
